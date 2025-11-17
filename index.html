@@ -100,6 +100,30 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+        .cart-icon:hover {
+            color: #8B4513;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #8B4513;
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         /* Hero Section */
         #hero {
             position: relative;
@@ -299,13 +323,8 @@
         }
         .producto-pie {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-        }
-        .precio {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #8B4513;
         }
         .btn-pedido {
             background: #228B22;
@@ -316,9 +335,81 @@
             font-size: 0.9rem;
             transition: background 0.3s;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
         }
         .btn-pedido:hover {
             background: #32CD32;
+        }
+        .btn-pedido.added {
+            background: #8B4513;
+        }
+        .btn-pedido.added:hover {
+            background: #A0522D;
+        }
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-total {
+            font-weight: 600;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .btn-cart-pedido {
+            background: #8B4513;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .btn-cart-pedido:hover {
+            background: #A0522D;
+        }
+        .btn-remove {
+            background: #FF6347;
+            color: #fff;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .btn-remove:hover {
+            background: #E5533D;
         }
         /* Footer */
         footer {
@@ -536,6 +627,10 @@
                     <li><a href="#hero" aria-label="Ir al inicio">Inicio</a></li>
                     <li><a href="#destacados" aria-label="Ver productos">Productos</a></li>
                 </ul>
+                <div class="cart-icon" id="cart-icon" aria-label="Ver carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
                 <button class="menu-toggle" aria-expanded="false" aria-label="Abrir menú móvil">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -560,7 +655,7 @@
                 <div class="hero-stats" aria-label="Datos destacados del catálogo">
                     <div class="hero-stat">
                         <span class="stat-number" id="recetas-count"></span>
-                        <span class="stat-label">recetas tradicionales</span>
+                        <span class="stat-label">recetas totales</span>
                     </div>
                     <div class="hero-stat">
                         <span class="stat-number">48 h</span>
@@ -603,8 +698,7 @@
                             <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, vino tinto, aceite de girasol, levadura, canela, ajonjolí.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">12.50 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Roscos%20de%20Vino" class="btn-pedido" aria-label="Pedir Roscos de Vino por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Roscos de Vino" aria-label="Añadir Roscos de Vino al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -628,8 +722,7 @@
                             <strong>Ingredientes:</strong> Queso mascarpone, huevos, azúcar, café, bizcochos de soletilla, cacao en polvo, licor de café (opcional).
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">14.50 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Tiramisú" class="btn-pedido" aria-label="Pedir Tiramisú por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Tiramisú" aria-label="Añadir Tiramisú al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -652,8 +745,7 @@
                             <strong>Ingredientes:</strong> Harina de trigo, azúcar, manteca de cerdo, canela, ajonjolí, limón.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">10.00 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Mantecados" class="btn-pedido" aria-label="Pedir Mantecados por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Mantecados" aria-label="Añadir Mantecados al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -676,8 +768,7 @@
                             <strong>Ingredientes:</strong> Harina de trigo, miel, mantequilla, azúcar moreno, huevo, jengibre en polvo, canela, clavo, bicarbonato, almendras.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">13.50 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Galletas%20de%20Jengibre" class="btn-pedido" aria-label="Pedir Galletas de Jengibre por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Galletas de Jengibre" aria-label="Añadir Galletas de Jengibre al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -699,8 +790,7 @@
                             <strong>Ingredientes:</strong> Masa de hojaldre, azúcar, mantequilla.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">9.50 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Palmeras" class="btn-pedido" aria-label="Pedir Palmeras por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Palmeras" aria-label="Añadir Palmeras al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -723,8 +813,7 @@
                             <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, aceite de girasol, levadura, canela, ajonjolí.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">12.00 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Roscos%20de%20Azúcar" class="btn-pedido" aria-label="Pedir Roscos de Azúcar por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Roscos de Azúcar" aria-label="Añadir Roscos de Azúcar al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -747,8 +836,7 @@
                             <strong>Ingredientes:</strong> Harina de trigo, vino blanco, aceite de oliva, azúcar, canela, ajonjolí, cáscara de naranja.
                         </div>
                         <div class="producto-pie">
-                            <div class="precio">11.00 €</div>
-                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Pestiños" class="btn-pedido" aria-label="Pedir Pestiños por WhatsApp">Pedir ahora</a>
+                            <button class="btn-pedido" data-producto="Pestiños" aria-label="Añadir Pestiños al carrito">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -800,6 +888,16 @@
     <a href="https://wa.me/34624416475?text=Hola,%20me%20interesa%20el%20catálogo%20de%20El%20Zorro" class="whatsapp-button" target="_blank" aria-label="Chatea con nosotros por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+    <!-- Modal del Carrito -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <h3>Tu Carrito</h3>
+            <div id="cart-items"></div>
+            <p class="cart-total" id="cart-total">Total: <span id="cart-total-count">0</span> productos</p>
+            <a href="#" id="btn-cart-pedido" class="btn-cart-pedido">Pedir por WhatsApp</a>
+            <button id="close-cart" style="background: #ccc; color: #333; margin-top: 1rem;">Cerrar</button>
+        </div>
+    </div>
     <!-- Modal de Cookies (simple) -->
     <div id="cookies-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-content">
@@ -809,12 +907,96 @@
     </div>
     <!-- Scripts consolidados -->
     <script>
-        // Contador dinámico de recetas
+        // Funciones del Carrito
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            const count = cart.length;
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total-count').textContent = count;
+        }
+
+        function addToCart(producto) {
+            cart.push(producto);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            return true;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = '<p>Tu carrito está vacío.</p>';
+                document.getElementById('btn-cart-pedido').style.display = 'none';
+                return;
+            }
+            document.getElementById('btn-cart-pedido').style.display = 'block';
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <span>${item}</span>
+                    <button class="btn-remove" onclick="removeFromCart(${index})">Eliminar</button>
+                </div>
+            `).join('');
+        }
+
+        function openCart() {
+            renderCart();
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        function pedidoWhatsApp() {
+            if (cart.length === 0) return;
+            const lista = cart.map(item => `- ${item}`).join('%0A');
+            const message = `Hola,%20quiero%20pedir:%0A${lista}`;
+            window.open(`https://wa.me/34624416475?text=${message}`, '_blank');
+        }
+
+        // Contador dinámico de recetas (ahora cuenta TODAS las recetas)
         document.addEventListener('DOMContentLoaded', function() {
-            const productosTradicionales = document.querySelectorAll('.grid-productos .producto[data-categoria*="tradicional"]');
-            const total = productosTradicionales.length;
+            const todasLasRecetas = document.querySelectorAll('.grid-productos .producto');
+            const total = todasLasRecetas.length;
             document.getElementById('recetas-count').textContent = total;
-            // Filtros básicos (para compatibilidad; asume JS externo si es necesario)
+
+            // Inicializar carrito
+            updateCartCount();
+
+            // Botones añadir al carrito
+            document.querySelectorAll('.btn-pedido').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const producto = this.dataset.producto;
+                    if (addToCart(producto)) {
+                        this.textContent = '¡Añadido!';
+                        this.classList.add('added');
+                        setTimeout(() => {
+                            this.textContent = 'Añadir al carrito';
+                            this.classList.remove('added');
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Icono carrito
+            document.getElementById('cart-icon').addEventListener('click', openCart);
+
+            // Cerrar carrito
+            document.getElementById('close-cart').addEventListener('click', closeCart);
+            document.getElementById('btn-cart-pedido').addEventListener('click', function(e) {
+                e.preventDefault();
+                pedidoWhatsApp();
+            });
+
+            // Filtros básicos
             const filtros = document.querySelectorAll('.filtro-pill');
             const productos = document.querySelectorAll('.producto');
             filtros.forEach(filtro => {
@@ -833,6 +1015,7 @@
                     });
                 });
             });
+
             // Modal cookies
             const modal = document.getElementById('cookies-modal');
             document.getElementById('open-preferences-modal').addEventListener('click', function(e) {
@@ -840,7 +1023,6 @@
                 modal.style.display = 'flex';
             });
             document.getElementById('accept-cookies').addEventListener('click', function() {
-                // Lógica simple de cookies (puedes expandir)
                 localStorage.setItem('cookies-accepted', 'true');
                 modal.style.display = 'none';
             });
@@ -848,6 +1030,7 @@
                 localStorage.setItem('cookies-rejected', 'true');
                 modal.style.display = 'none';
             });
+
             // Menú móvil
             const menuToggle = document.querySelector('.menu-toggle');
             const menu = document.querySelector('.main-navigation ul');
@@ -856,6 +1039,7 @@
                 const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
                 menuToggle.setAttribute('aria-expanded', !expanded);
             });
+
             // Smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -871,10 +1055,14 @@
                     }
                 });
             });
+
             // Cierre del modal al clic fuera
             window.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.style.display = 'none';
+                }
+                if (e.target === document.getElementById('cart-modal')) {
+                    closeCart();
                 }
             });
         });
