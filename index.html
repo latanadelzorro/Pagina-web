@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Zorro - Repostería Profesional</title>
+    <link rel="icon" type="image/svg+xml" href="./icono_vectorizado.svg">
+    <meta name="description" content="Repostería artesanal de alta calidad. Productos horneados con ingredientes naturales y recetas tradicionales.">
+   
+    <!-- Open Graph para SEO -->
+    <meta property="og:title" content="El Zorro - Repostería Profesional">
+    <meta property="og:description" content="Descubre nuestra selección de postres artesanales elaborados con ingredientes de temporada.">
+    <meta property="og:image" content="./El Zorro - Repostería Profesional_files/tiramisu.jpg">
+    <meta property="og:url" content="https://tu-usuario.github.io/el-zorro-reposteria">
+   
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+   
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   
+    <style>
+        /* main.css - Estilos generales para El Zorro Repostería Profesional */
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        .site-header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: #8B4513; /* Marrón chocolate para tema repostería */
+        }
+        .logo-text span {
+            font-size: 0.9rem;
+            color: #666;
+            display: block;
+        }
+        .main-navigation ul {
+            display: flex;
+            list-style: none;
+        }
+        .main-navigation li {
+            margin-left: 2rem;
+        }
+        .main-navigation a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .main-navigation a:hover {
+            color: #8B4513;
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* Hero Section */
+        #hero {
+            position: relative;
+            padding: 4rem 0;
+            background: linear-gradient(to bottom, #f8f4f0, #fff);
+            overflow: hidden;
+        }
+        .hero-collage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .hero-collage img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .hero-collage img:hover {
+            transform: scale(1.05);
+        }
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #8B4513;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .hero-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #8B4513;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B4513;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #999;
+        }
+        .btn {
+            display: inline-block;
+            background: #8B4513;
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #A0522D;
+        }
+        /* Productos Section */
+        #destacados {
+            padding: 4rem 0;
+        }
+        #destacados h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #8B4513;
+        }
+        .catalogo-filtros {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .filtro-pill {
+            background: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .filtro-pill.is-active,
+        .filtro-pill:hover {
+            background: #8B4513;
+            color: #fff;
+        }
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .producto {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .producto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .producto-imagen img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .producto-info {
+            padding: 1.5rem;
+        }
+        .producto-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .producto-categoria {
+            background: #8B4513;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .alergenos {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .alergenos i {
+            font-size: 1rem;
+            color: #FF6347;
+            cursor: help;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .alergenos i:hover {
+            color: #E5533D;
+        }
+        .alergenos i:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 10;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+        .producto-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .descripcion {
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .ingredientes {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 1rem;
+            background: #f8f4f0;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border-left: 3px solid #8B4513;
+        }
+        .producto-pie {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .precio {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #8B4513;
+        }
+        .btn-pedido {
+            background: #228B22;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        .btn-pedido:hover {
+            background: #32CD32;
+        }
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 3rem 0 1rem;
+        }
+        .footer-contenido {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-columna h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+        .footer-columna p,
+        .footer-columna a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        .footer-columna a:hover {
+            color: #fff;
+        }
+        .redes-sociales {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .red-social {
+            display: block;
+            width: 40px;
+            height: 40px;
+            background: #8B4513;
+            color: #fff;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .red-social:hover {
+            background: #A0522D;
+            transform: scale(1.1);
+        }
+        .mapa-sitio {
+            list-style: none;
+        }
+        .mapa-sitio li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-derechos {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #999;
+        }
+        /* WhatsApp Button */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+        /* Modal Cookies */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+        }
+        .modal-content button {
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #accept-cookies {
+            background: #8B4513;
+            color: #fff;
+        }
+        #reject-cookies {
+            background: #ccc;
+            color: #333;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .main-navigation ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                flex-direction: column;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            .main-navigation ul.toggled {
+                display: flex;
+            }
+            .main-navigation li {
+                margin: 0;
+                padding: 1rem;
+                border-bottom: 1px solid #eee;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            .catalogo-filtros {
+                flex-direction: column;
+                align-items: center;
+            }
+            .grid-productos {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Animaciones adicionales */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .producto {
+            animation: fadeIn 0.6s ease-out;
+        }
+        /* Estilos adicionales para WordPress-like */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropbtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        /* Mejora profesional: Sección de CTA en footer */
+        .cta-contacto {
+            background: #f8f4f0;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        .cta-contacto h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .cta-contacto p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="home page-template-default">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="./El Zorro - Repostería Profesional_files/icono_vectorizado.svg" alt="Logo de El Zorro: Chef con sombrero ilustrado" class="logo">
+                <div class="logo-text">
+                    <h1>El Zorro</h1>
+                    <span>Repostería Profesional</span>
+                </div>
+            </div>
+            <nav class="main-navigation" role="navigation" aria-label="Menú principal">
+                <ul class="menu">
+                    <li><a href="#hero" aria-label="Ir al inicio">Inicio</a></li>
+                    <li><a href="#destacados" aria-label="Ver productos">Productos</a></li>
+                </ul>
+                <button class="menu-toggle" aria-expanded="false" aria-label="Abrir menú móvil">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section id="hero">
+            <div class="hero-collage">
+                <img src="./El Zorro - Repostería Profesional_files/tiramisu.jpg" alt="Tiramisú cremoso con capas de café" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/mantecados.jpeg" alt="Mantecados navideños con canela" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/galletas gengibre.jpeg" alt="Galletas de jengibre en forma de muñeco" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/palmeras.avif" alt="Palmeras crujientes de hojaldre" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/roscosdeazucar.jpg" alt="Roscos de azúcar esponjosos" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/roscos-vino.jpeg" alt="Roscos de vino tinto aromáticos" loading="lazy">
+                <img src="./El Zorro - Repostería Profesional_files/pestiños.jpg" alt="Pestiños fritos con miel y anís" loading="lazy">
+            </div>
+            <div class="hero-content">
+                <span class="hero-badge">Catálogo profesional 2025</span>
+                <h2>Dulces Momentos, Sabores Inolvidables</h2>
+                <p>Descubre nuestra selección de postres artesanales elaborados con ingredientes de temporada, procesos cuidados y presentaciones listas para tu negocio.</p>
+                <div class="hero-stats" aria-label="Datos destacados del catálogo">
+                    <div class="hero-stat">
+                        <span class="stat-number" id="recetas-count"></span>
+                        <span class="stat-label">recetas tradicionales</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">48 h</span>
+                        <span class="stat-label">Producción por encargo</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Recetas artesanales</span>
+                    </div>
+                </div>
+                <a href="#destacados" class="btn" aria-label="Ver catálogo completo">Ver catálogo completo</a>
+            </div>
+        </section>
+        <section id="destacados" aria-labelledby="productos-title">
+            <h2 id="productos-title">Nuestros Productos</h2>
+            <div class="catalogo-filtros" role="tablist" aria-label="Categorías del catálogo">
+                <button class="filtro-pill is-active" type="button" data-categoria="todos" role="tab" aria-selected="true">Todos</button>
+                <button class="filtro-pill" type="button" data-categoria="tradicional" role="tab">Tradicional</button>
+                <button class="filtro-pill" type="button" data-categoria="navideno" role="tab">Navideño</button>
+                <button class="filtro-pill" type="button" data-categoria="semana-santa" role="tab">Semana Santa</button>
+            </div>
+           
+            <div class="grid-productos" role="tabpanel">
+                <div class="producto" data-categoria="tradicional">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/roscos-vino.jpeg" alt="Roscos de vino esponjosos con toque de vino tinto" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
+                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
+                            </div>
+                        </div>
+                        <h3>Roscos de Vino</h3>
+                        <p class="descripcion">Deliciosos roscos esponjosos con un toque de vino tinto.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, vino tinto, aceite de girasol, levadura, canela, ajonjolí.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">12.50 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Roscos%20de%20Vino" class="btn-pedido" aria-label="Pedir Roscos de Vino por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="tradicional">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/tiramisu.jpg" alt="Tiramisú clásico italiano con mascarpone y café" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
+                                <i class="fas fa-cheese" title="Contiene lácteos" aria-label="Lácteos"></i>
+                                <i class="fas fa-coffee" title="Contiene cafeína" aria-label="Cafeína"></i>
+                            </div>
+                        </div>
+                        <h3>Tiramisú</h3>
+                        <p class="descripcion">Clásico postre italiano con capas de café y mascarpone.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Queso mascarpone, huevos, azúcar, café, bizcochos de soletilla, cacao en polvo, licor de café (opcional).
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">14.50 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Tiramisú" class="btn-pedido" aria-label="Pedir Tiramisú por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="navideno">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/mantecados.jpeg" alt="Mantecados suaves y aromáticos de canela" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="navideno">Navideño</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
+                                <i class="fas fa-wine-bottle" title="Contiene sulfitos" aria-label="Sulfitos"></i>
+                            </div>
+                        </div>
+                        <h3>Mantecados</h3>
+                        <p class="descripcion">Clásicos mantecados de canela, suaves y aromáticos.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, manteca de cerdo, canela, ajonjolí, limón.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">10.00 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Mantecados" class="btn-pedido" aria-label="Pedir Mantecados por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="navideno">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/galletas gengibre.jpeg" alt="Galletas divertidas de jengibre con forma de muñeco" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="navideno">Navideño</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
+                                <i class="fas fa-seedling" title="Contiene frutos secos" aria-label="Frutos secos"></i>
+                            </div>
+                        </div>
+                        <h3>Galletas de Jengibre</h3>
+                        <p class="descripcion">Divertidas galletas con forma de muñeco de jengibre.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Harina de trigo, miel, mantequilla, azúcar moreno, huevo, jengibre en polvo, canela, clavo, bicarbonato, almendras.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">13.50 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Galletas%20de%20Jengibre" class="btn-pedido" aria-label="Pedir Galletas de Jengibre por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="tradicional">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/palmeras.avif" alt="Palmeras crujientes de hojaldre con azúcar" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-cheese" title="Contiene lácteos" aria-label="Lácteos"></i>
+                            </div>
+                        </div>
+                        <h3>Palmeras</h3>
+                        <p class="descripcion">Crujientes palmeras de hojaldre con azúcar.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Masa de hojaldre, azúcar, mantequilla.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">9.50 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Palmeras" class="btn-pedido" aria-label="Pedir Palmeras por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="tradicional">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/roscosdeazucar.jpg" alt="Roscos de azúcar andaluces suaves y esponjosos" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
+                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
+                            </div>
+                        </div>
+                        <h3>Roscos de Azúcar</h3>
+                        <p class="descripcion">Especialidad andaluza, suaves y esponjosos.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, aceite de girasol, levadura, canela, ajonjolí.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">12.00 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Roscos%20de%20Azúcar" class="btn-pedido" aria-label="Pedir Roscos de Azúcar por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="producto" data-categoria="tradicional semana-santa">
+                    <div class="producto-imagen">
+                        <img src="./El Zorro - Repostería Profesional_files/pestiños.jpg" alt="Pestiños tradicionales andaluces de Semana Santa" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <div class="producto-cabecera">
+                            <span class="producto-categoria" data-categoria="semana-santa">Semana Santa</span>
+                            <div class="alergenos">
+                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
+                                <i class="fas fa-wine-bottle" title="Contiene vino" aria-label="Vino"></i>
+                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
+                            </div>
+                        </div>
+                        <h3>Pestiños</h3>
+                        <p class="descripcion">Dulce tradicional andaluz de Semana Santa.</p>
+                        <div class="ingredientes">
+                            <strong>Ingredientes:</strong> Harina de trigo, vino blanco, aceite de oliva, azúcar, canela, ajonjolí, cáscara de naranja.
+                        </div>
+                        <div class="producto-pie">
+                            <div class="precio">11.00 €</div>
+                            <a href="https://wa.me/34624416475?text=Hola,%20quiero%20pedir%20Pestiños" class="btn-pedido" aria-label="Pedir Pestiños por WhatsApp">Pedir ahora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="cta-contacto">
+                <h3>¿Listo para endulzar tu negocio?</h3>
+                <p>Contáctanos directamente por WhatsApp para pedidos personalizados y consultas.</p>
+                <a href="https://wa.me/34624416475?text=Hola,%20me%20interesa%20el%20catálogo%20de%20El%20Zorro" class="btn" aria-label="Contactar por WhatsApp">Iniciar conversación</a>
+            </div>
+            <div class="footer-contenido">
+                <div class="footer-columna">
+                    <h3>El Zorro</h3>
+                    <p>Excelencia en repostería artesanal desde 2025.</p>
+                    <p>Nos comprometemos a elaborar cada producto con ingredientes naturales, sin aditivos innecesarios y con procesos artesanales que garantizan sabor, frescura y autenticidad. Tu satisfacción es nuestra prioridad.</p>
+                </div>
+                <div class="footer-columna">
+                    <h3>Contacto</h3>
+                    <p>latanadelzorro@gmail.com</p>
+                    <p>+34 624 41 64 75</p>
+                    <div class="redes-sociales">
+                        <a href="https://wa.me/34624416475" target="_blank" class="red-social" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/elzorropanaderias/" target="_blank" class="red-social" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-columna">
+                    <h3>Legal</h3>
+                    <ul class="mapa-sitio">
+                        <li><a href="legal.html#privacidad">Política de Privacidad</a></li>
+                        <li><a href="legal.html">Términos y Condiciones</a></li>
+                        <li><a href="#" id="open-preferences-modal" aria-label="Preferencias de Cookies">Preferencias de Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-derechos">
+                <p>© 2025 El Zorro Repostería. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Botón flotante de WhatsApp (solo uno) -->
+    <a href="https://wa.me/34624416475?text=Hola,%20me%20interesa%20el%20catálogo%20de%20El%20Zorro" class="whatsapp-button" target="_blank" aria-label="Chatea con nosotros por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- Modal de Cookies (simple) -->
+    <div id="cookies-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="modal-title">Preferencias de Cookies</h3>
+            <p>Usamos cookies para mejorar tu experiencia. <button id="accept-cookies">Aceptar todas</button> <button id="reject-cookies">Rechazar</button></p>
+        </div>
+    </div>
+    <!-- Scripts consolidados -->
+    <script>
+        // Contador dinámico de recetas
+        document.addEventListener('DOMContentLoaded', function() {
+            const productosTradicionales = document.querySelectorAll('.grid-productos .producto[data-categoria*="tradicional"]');
+            const total = productosTradicionales.length;
+            document.getElementById('recetas-count').textContent = total;
+            // Filtros básicos (para compatibilidad; asume JS externo si es necesario)
+            const filtros = document.querySelectorAll('.filtro-pill');
+            const productos = document.querySelectorAll('.producto');
+            filtros.forEach(filtro => {
+                filtro.addEventListener('click', () => {
+                    filtros.forEach(f => f.classList.remove('is-active'));
+                    filtro.classList.add('is-active');
+                    const categoria = filtro.dataset.categoria;
+                    productos.forEach(producto => {
+                        if (categoria === 'todos' || producto.dataset.categoria.includes(categoria)) {
+                            producto.style.display = 'block';
+                            producto.style.opacity = '0';
+                            setTimeout(() => { producto.style.opacity = '1'; }, 100);
+                        } else {
+                            producto.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            // Modal cookies
+            const modal = document.getElementById('cookies-modal');
+            document.getElementById('open-preferences-modal').addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                // Lógica simple de cookies (puedes expandir)
+                localStorage.setItem('cookies-accepted', 'true');
+                modal.style.display = 'none';
+            });
+            document.getElementById('reject-cookies').addEventListener('click', function() {
+                localStorage.setItem('cookies-rejected', 'true');
+                modal.style.display = 'none';
+            });
+            // Menú móvil
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.main-navigation ul');
+            menuToggle.addEventListener('click', () => {
+                menu.classList.toggle('toggled');
+                const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', !expanded);
+            });
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            // Cierre del modal al clic fuera
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

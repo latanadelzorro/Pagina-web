@@ -1,0 +1,195 @@
+// ============================================
+// SISTEMA DE CARGA DINÁMICA DE CONTENIDO
+// Carga Hero y Footer desde archivos JSON
+// ============================================
+
+// Cargar contenido del Hero
+async function cargarHeroDinamico() {
+    try {
+        const response = await fetch('data/hero-config.json');
+        if (!response.ok) {
+            console.log('No se encontró hero-config.json, usando valores por defecto');
+            return;
+        }
+        
+        const heroData = await response.json();
+        const heroSection = document.querySelector('#hero');
+        if (!heroSection) return;
+        
+        // Actualizar badge
+        const badge = heroSection.querySelector('.hero-badge');
+        if (badge && heroData.badge) {
+            badge.textContent = heroData.badge;
+        }
+        
+        // Actualizar título
+        const titulo = heroSection.querySelector('.hero-content h2');
+        if (titulo && heroData.titulo) {
+            titulo.textContent = heroData.titulo;
+        }
+        
+        // Actualizar descripción
+        const descripcion = heroSection.querySelector('.hero-content p');
+        if (descripcion && heroData.descripcion) {
+            descripcion.textContent = heroData.descripcion;
+        }
+        
+        // Actualizar botón
+        const boton = heroSection.querySelector('.hero-content .btn');
+        if (boton && heroData.botonTexto) {
+            boton.textContent = heroData.botonTexto;
+        }
+        
+        // Actualizar estadísticas
+        if (heroData.stats && heroData.stats.length > 0) {
+            const statsContainer = heroSection.querySelector('.hero-stats');
+            if (statsContainer) {
+                statsContainer.innerHTML = heroData.stats.map(stat => `
+                    <div class="hero-stat">
+                        <span class="stat-number">${stat.numero}</span>
+                        <span class="stat-label">${stat.label}</span>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Actualizar imágenes del collage
+        if (heroData.imagenes && heroData.imagenes.length > 0) {
+            const collage = heroSection.querySelector('.hero-collage');
+            if (collage) {
+                // Repetir imágenes para llenar el collage (mínimo 7 imágenes)
+                const imagenesRepetidas = [];
+                while (imagenesRepetidas.length < 7) {
+                    imagenesRepetidas.push(...heroData.imagenes);
+                }
+                collage.innerHTML = imagenesRepetidas.slice(0, 7).map(img => 
+                    `<img src="${img.src}" alt="${img.alt || ''}" onerror="this.style.display='none'">`
+                ).join('');
+            }
+        } else {
+            // Si no hay imágenes configuradas, mantener las por defecto
+            console.log('No hay imágenes configuradas en hero-config.json, usando las por defecto');
+        }
+    } catch (error) {
+        console.error('Error cargando hero:', error);
+    }
+}
+
+// Cargar contenido del Footer
+async function cargarFooterDinamico() {
+    try {
+        const response = await fetch('data/footer-config.json');
+        if (!response.ok) {
+            console.log('No se encontró footer-config.json, usando valores por defecto');
+            return;
+        }
+        
+        const footerData = await response.json();
+        const footer = document.querySelector('footer');
+        if (!footer) return;
+        
+        // Actualizar nombre
+        const nombre = footer.querySelector('.footer-columna h3');
+        if (nombre && footerData.nombre) {
+            nombre.textContent = footerData.nombre;
+        }
+        
+        // Actualizar descripción
+        const descripcion = footer.querySelector('.footer-columna p');
+        if (descripcion && footerData.descripcion) {
+            descripcion.textContent = footerData.descripcion;
+        }
+        
+        // Actualizar email y teléfono (buscar en la columna de contacto)
+        const columnaContacto = footer.querySelector('.footer-columna:nth-of-type(2)');
+        if (columnaContacto) {
+            const parrafos = columnaContacto.querySelectorAll('p');
+            if (parrafos.length >= 1 && footerData.email) {
+                parrafos[0].textContent = footerData.email;
+            }
+            if (parrafos.length >= 2 && footerData.telefono) {
+                parrafos[1].textContent = footerData.telefono;
+            }
+        }
+        
+        // Actualizar redes sociales
+        if (footerData.redesSociales && footerData.redesSociales.length > 0) {
+            const redesContainer = footer.querySelector('.redes-sociales');
+            if (redesContainer) {
+                redesContainer.innerHTML = footerData.redesSociales.map(red => `
+                    <a href="${red.href}" target="_blank" class="red-social" aria-label="${red.nombre || 'Red social'}">
+                        <i class="${red.icono || 'fas fa-link'}"></i>
+                    </a>
+                `).join('');
+            }
+        }
+        
+        // Actualizar copyright
+        const copyright = footer.querySelector('.footer-derechos p');
+        if (copyright && footerData.nombre) {
+            const año = new Date().getFullYear();
+            copyright.innerHTML = `&copy; ${año} ${footerData.nombre} Repostería. Todos los derechos reservados.`;
+        }
+        
+        // Actualizar botón de WhatsApp flotante si existe
+        const whatsappButton = document.querySelector('.whatsapp-button');
+        if (whatsappButton && footerData.redesSociales) {
+            const whatsapp = footerData.redesSociales.find(r => r.nombre === 'WhatsApp' || r.icono.includes('whatsapp'));
+            if (whatsapp) {
+                whatsappButton.href = whatsapp.href;
+            }
+        }
+    } catch (error) {
+        console.error('Error cargando footer:', error);
+    }
+}
+
+// Cargar categorías dinámicamente
+async function cargarCategoriasDinamicas() {
+    try {
+        const response = await fetch('data/productos/lista-productos.json');
+        if (!response.ok) return;
+        
+        const listaProductos = await response.json();
+        const productos = [];
+        
+        for (const productoInfo of listaProductos) {
+            try {
+                const productoResponse = await fetch(`data/productos/${productoInfo.archivo}`);
+                if (productoResponse.ok) {
+                    const producto = await productoResponse.json();
+                    productos.push(producto);
+                }
+            } catch (error) {
+                console.error(`Error cargando ${productoInfo.archivo}:`, error);
+            }
+        }
+        
+        // Obtener categorías únicas
+        const categoriasUnicas = [...new Set(productos.map(p => p.categoria))];
+        
+        // Actualizar filtros
+        const filtrosContainer = document.querySelector('.catalogo-filtros');
+        if (filtrosContainer) {
+            const filtrosHTML = `
+                <button class="filtro-pill is-active" type="button" data-categoria="todos">Todos</button>
+                ${categoriasUnicas.map(cat => `
+                    <button class="filtro-pill" type="button" data-categoria="${cat}">
+                        ${cat.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ')}
+                    </button>
+                `).join('')}
+            `;
+            filtrosContainer.innerHTML = filtrosHTML;
+        }
+    } catch (error) {
+        console.error('Error cargando categorías:', error);
+    }
+}
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    cargarHeroDinamico();
+    cargarFooterDinamico();
+    cargarCategoriasDinamicas();
+});
+
