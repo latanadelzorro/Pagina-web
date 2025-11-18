@@ -25,11 +25,36 @@
             --cream-bg: #FFFBF2;
             --white: #ffffff;
             --gray: #666666;
+            --card-bg: #ffffff;
+            --item-bg: #f9f9f9;
             --radius-lg: 24px;
             --radius-md: 16px;
             --nav-height: 70px;
             --shadow-card: 0 10px 30px rgba(0,0,0,0.06);
         }
+
+        /* --- MODO OSCURO --- */
+        body.dark-mode {
+            --dark: #f0f0f0;           
+            --cream-bg: #121212;       
+            --white: #1e1e1e;          
+            --card-bg: #1e1e1e;        
+            --item-bg: #2c2c2c;        
+            --gray: #a0a0a0;           
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        body.dark-mode .app-header { background: rgba(18, 18, 18, 0.95); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        body.dark-mode .bottom-nav { background: #1e1e1e; border-top: 1px solid rgba(255,255,255,0.1); }
+        body.dark-mode .info-item { background: #252525; color: #eee; border-color: #333; }
+        body.dark-mode .cat-chip { color: #eee; border-color: #444; }
+        body.dark-mode .cat-chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
+        body.dark-mode .nav-item { color: #666; }
+        body.dark-mode .nav-item.active { color: var(--primary); }
+        body.dark-mode .qty-box { background: #333; color: white; }
+        body.dark-mode .qty-box button { color: white; }
+        body.dark-mode .cart-sheet, body.dark-mode .product-modal-content { background: #1e1e1e; }
+        body.dark-mode .cart-row { background: var(--item-bg); }
+        body.dark-mode .allergen-tag { background: #333; color: #eee; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -39,9 +64,26 @@
             color: var(--dark);
             padding-bottom: calc(var(--nav-height) + 40px);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--cream-bg); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader-logo { width: 80px; margin-bottom: 20px; animation: pulse 2s infinite; }
+        .loader-spinner {
+            width: 40px; height: 40px; border: 3px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%; border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } 100% { transform: scale(1); opacity: 1; } }
 
         /* --- HEADER --- */
         .app-header {
@@ -52,51 +94,44 @@
             display: flex; justify-content: space-between; align-items: center;
             z-index: 100;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: background 0.3s;
         }
         .brand { display: flex; align-items: center; gap: 10px; }
         .brand img { height: 38px; }
         .brand-text { line-height: 1; }
         .brand-text h1 { font-size: 1.1rem; margin: 0; color: var(--dark); }
         .brand-text small { font-size: 0.7rem; color: var(--primary-dark); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
-
-        .cart-btn-top { position: relative; background: none; border: none; font-size: 1.3rem; padding: 5px; cursor: pointer; }
-        .badge-dot {
-            position: absolute; top: 5px; right: 2px; width: 8px; height: 8px;
-            background: var(--primary); border-radius: 50%; opacity: 0; transition: 0.3s;
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-        }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .btn-icon-top { position: relative; background: none; border: none; font-size: 1.3rem; padding: 5px; cursor: pointer; color: var(--dark); transition: color 0.3s; }
+        .badge-dot { position: absolute; top: 5px; right: 2px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; opacity: 0; transition: 0.3s; box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
         .badge-dot.show { opacity: 1; }
 
         /* --- HERO --- */
         .hero-section {
-            position: relative;
-            height: 55vh; min-height: 400px;
+            position: relative; height: 55vh; min-height: 400px;
             background: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80') center/cover no-repeat;
-            display: flex; align-items: flex-end;
-            margin-bottom: 0;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-            overflow: hidden;
+            display: flex; align-items: flex-end; margin-bottom: 0;
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; overflow: hidden;
         }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2), rgba(0,0,0,0.1)); }
         .hero-content { position: relative; z-index: 2; padding: 30px 20px 50px 20px; color: white; width: 100%; animation: fadeInUp 1s ease; }
         .location-tag { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.3); }
         .hero-content h2 { font-size: 2.2rem; line-height: 1.1; margin-bottom: 10px; }
         .hero-content p { font-size: 1rem; opacity: 0.9; margin-bottom: 20px; font-weight: 300; max-width: 300px; }
-        .cta-hero { background: var(--primary); color: var(--dark); text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; display: inline-block; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        .cta-hero { background: var(--primary); color: #1a1a1a; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: bold; display: inline-block; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
 
         /* --- INFO BAR --- */
         .info-bar { display: flex; gap: 12px; overflow-x: auto; padding: 25px 20px; scrollbar-width: none; }
         .info-bar::-webkit-scrollbar { display: none; }
-        .info-item { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; background: white; padding: 8px 15px; border-radius: 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03); font-size: 0.8rem; font-weight: 500; }
+        .info-item { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; background: white; padding: 8px 15px; border-radius: 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03); font-size: 0.8rem; font-weight: 500; transition: background 0.3s, color 0.3s; }
         .info-item i { color: var(--primary-dark); }
 
         /* --- SOBRE NOSOTROS --- */
-        .about-box { margin: 0 20px 30px 20px; background: white; padding: 30px 25px; border-radius: var(--radius-lg); box-shadow: var(--shadow-card); text-align: left; position: relative; }
+        .about-box { margin: 0 20px 30px 20px; background: var(--card-bg); padding: 30px 25px; border-radius: var(--radius-lg); box-shadow: var(--shadow-card); text-align: left; position: relative; transition: background 0.3s; }
         .about-header { text-align: center; margin-bottom: 20px; }
         .about-header h3 { font-size: 1.6rem; color: var(--dark); margin-bottom: 10px; }
         .divider { width: 50px; height: 3px; background: var(--primary); margin: 0 auto; border-radius: 2px; }
         .about-text p { font-size: 0.95rem; color: var(--gray); line-height: 1.7; margin-bottom: 15px; }
-        .about-text p:last-child { margin-bottom: 0; }
         .about-icon-float { position: absolute; top: 20px; right: 20px; font-size: 4rem; color: var(--primary); opacity: 0.1; }
 
         /* --- CATALOGO --- */
@@ -104,194 +139,146 @@
         .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 20px 20px; scrollbar-width: none; }
         .cat-scroll::-webkit-scrollbar { display: none; }
         .cat-chip { background: transparent; border: 1px solid #ddd; padding: 8px 18px; border-radius: 50px; white-space: nowrap; font-size: 0.9rem; font-weight: 500; color: var(--gray); transition: all 0.3s; cursor: pointer; }
-        .cat-chip.active { background: var(--dark); color: white; border-color: var(--dark); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .cat-chip.active { background: var(--dark); color: var(--white); border-color: var(--dark); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 0 20px; }
-        .product-card { background: white; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; height: 100%; }
-        .img-wrapper { position: relative; height: 160px; background: #f0f0f0; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-add-mini { position: absolute; bottom: 10px; right: 10px; width: 36px; height: 36px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); cursor: pointer; color: var(--dark); transition: 0.3s; z-index: 10; }
+        .product-card { background: var(--card-bg); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; height: 100%; transition: background 0.3s; position: relative; }
+        
+        .img-wrapper { position: relative; height: 160px; background: #f0f0f0; cursor: pointer; overflow: hidden; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .img-wrapper:active img { transform: scale(1.05); }
+        
+        /* FAVORITOS BTN */
+        .btn-fav {
+            position: absolute; top: 10px; left: 10px;
+            width: 32px; height: 32px;
+            background: rgba(255,255,255,0.9); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            border: none; cursor: pointer; z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .btn-fav:active { transform: scale(0.9); }
+        .btn-fav i { color: #ccc; font-size: 1rem; transition: color 0.3s; }
+        .btn-fav.active i { color: #ff4757; font-weight: 900; }
+
+        .btn-add-mini { position: absolute; bottom: 10px; right: 10px; width: 36px; height: 36px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); cursor: pointer; color: #1a1a1a; transition: 0.3s; z-index: 10; }
         .btn-add-mini:active, .btn-add-mini.active { background: var(--primary); color: white; transform: scale(1.1); }
+        
         .info-wrapper { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
         .cat-tag-small { font-size: 0.7rem; text-transform: uppercase; color: #aaa; font-weight: bold; letter-spacing: 0.5px; margin-top: auto; }
+        .product-card h4 { color: var(--dark); font-size: 1rem; margin-bottom: 5px; }
+        .product-card p { color: var(--gray); font-size: 0.85rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* --- MODAL RULETA PRO --- */
-        .float-wheel-btn {
-            position: fixed; bottom: 100px; right: 20px;
-            width: 65px; height: 65px;
-            background: linear-gradient(135deg, #FFD700, #FF8C00);
-            border: 3px solid white;
-            border-radius: 50%;
+        /* --- MODAL VISTA RAPIDA (PRODUCTO) --- */
+        .product-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 1500;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s;
+            padding: 20px;
+        }
+        .product-modal.active { display: flex; opacity: 1; }
+        .product-modal-content {
+            background: var(--card-bg); width: 100%; max-width: 400px;
+            border-radius: 25px; overflow: hidden;
+            position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transform: translateY(50px); transition: transform 0.3s;
+            max-height: 90vh; display: flex; flex-direction: column;
+        }
+        .product-modal.active .product-modal-content { transform: translateY(0); }
+        .pm-img-box { height: 250px; width: 100%; position: relative; }
+        .pm-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .pm-close {
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(0,0,0,0.5); color: white;
+            width: 35px; height: 35px; border-radius: 50%;
+            border: none; font-size: 1.2rem; cursor: pointer; z-index: 10;
             display: flex; justify-content: center; align-items: center;
-            font-size: 2.2rem; box-shadow: 0 5px 25px rgba(255, 140, 0, 0.6);
-            cursor: pointer; z-index: 800;
-            animation: wiggle 3s infinite;
+        }
+        .pm-body { padding: 25px; overflow-y: auto; }
+        .pm-title { font-size: 1.8rem; margin-bottom: 10px; color: var(--dark); line-height: 1.1; }
+        .pm-desc { color: var(--gray); margin-bottom: 20px; line-height: 1.6; font-size: 1rem; }
+        .pm-meta { margin-bottom: 25px; }
+        .pm-label { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; color: var(--primary-dark); margin-bottom: 8px; display: block; }
+        .allergen-list { display: flex; gap: 10px; flex-wrap: wrap; }
+        .allergen-tag {
+            font-size: 0.8rem; padding: 6px 12px; border-radius: 20px;
+            background: #f0f0f0; color: #555; display: flex; align-items: center; gap: 5px;
+        }
+        .pm-btn-add {
+            width: 100%; background: var(--primary); color: #1a1a1a;
+            border: none; padding: 15px; border-radius: 15px;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- MODAL RULETA --- */
+        .float-wheel-btn {
+            position: fixed; bottom: 100px; right: 20px; width: 65px; height: 65px;
+            background: linear-gradient(135deg, #FFD700, #FF8C00); border: 3px solid white; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 2.2rem; box-shadow: 0 5px 25px rgba(255, 140, 0, 0.6);
+            cursor: pointer; z-index: 800; animation: wiggle 3s infinite;
         }
         .float-wheel-btn.hidden { display: none; }
-
         @keyframes wiggle { 0%, 7% {transform: rotateZ(0);} 15% {transform: rotateZ(-15deg);} 20% {transform: rotateZ(10deg);} 25% {transform: rotateZ(-10deg);} 30% {transform: rotateZ(6deg);} 35%, 100% {transform: rotateZ(0);} }
 
         .wheel-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 2000;
-            display: none; justify-content: center; align-items: center;
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px);
         }
-        
-        /* Contenedor con Luces */
-        .wheel-outer-ring {
-            background: #cc3333;
-            padding: 15px;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            border: 4px solid #fff;
-        }
-        /* Bombillas (efecto visual con borde punteado) */
-        .wheel-outer-ring::before {
-            content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border-radius: 50%; border: 4px dashed #FFD700;
-            pointer-events: none;
-        }
-
-        .wheel-wrapper {
-            width: 300px; height: 300px;
-            position: relative; border-radius: 50%;
-            overflow: hidden;
-            border: 6px solid #2c2c2c;
-            background: white;
-        }
-
+        .wheel-outer-ring { background: #cc3333; padding: 15px; border-radius: 50%; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.5); border: 4px solid #fff; }
+        .wheel-outer-ring::before { content: ''; position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px; border-radius: 50%; border: 4px dashed #FFD700; pointer-events: none; }
+        .wheel-wrapper { width: 300px; height: 300px; position: relative; border-radius: 50%; overflow: hidden; border: 6px solid #2c2c2c; background: white; }
         .the-wheel {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            /* 8 Segmentos: 360 / 8 = 45deg cada uno */
-            background: conic-gradient(
-                #FFD700 0deg 45deg,    /* 1 */
-                #ff4757 45deg 90deg,   /* 2 */
-                #2ed573 90deg 135deg,  /* 3 */
-                #1e90ff 135deg 180deg, /* 4 */
-                #FFD700 180deg 225deg, /* 5 */
-                #ff4757 225deg 270deg, /* 6 */
-                #2ed573 270deg 315deg, /* 7 */
-                #1e90ff 315deg 360deg  /* 8 */
-            );
-            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Giro suave */
-            position: relative;
+            width: 100%; height: 100%; border-radius: 50%;
+            background: conic-gradient(#FFD700 0deg 45deg, #ff4757 45deg 90deg, #2ed573 90deg 135deg, #1e90ff 135deg 180deg, #FFD700 180deg 225deg, #ff4757 225deg 270deg, #2ed573 270deg 315deg, #1e90ff 315deg 360deg);
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); position: relative;
         }
-
-        /* Texto dentro de la ruleta */
-        .wheel-segment {
-    position: absolute; 
-    top: 0; 
-    left: 50%;
-    width: 2px; 
-    height: 50%;
-    /* LA CLAVE: Esto centra el eje exactamente */
-    margin-left: -1px; 
-    transform-origin: bottom center;
-    /* Quitamos el padding para controlar mejor la posición del texto abajo */
-    padding: 0;
-    pointer-events: none; /* Evita que el texto bloquee clicks */
-}
-        .segment-text {
-    position: absolute;
-    top: 25px; /* Ajusta esto para alejarlo/acercarlo al borde */
-    left: 50%;
-    /* Centrado horizontal exacto + rotación */
-    transform: translateX(-50%) rotate(90deg);
-    
-    font-weight: 800; 
-    font-size: 0.95rem; /* Un pelín más grande */
-    white-space: nowrap;
-    color: white; 
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.6); /* Sombra para que se lea bien sobre amarillo */
-    display: flex; 
-    align-items: center; 
-    gap: 5px;
-}
-        
-        /* Posicionamiento de los 8 textos */
-        .seg-1 { transform: rotate(22.5deg); }  /* 15% */
-        .seg-2 { transform: rotate(67.5deg); }  /* Casi */
-        .seg-3 { transform: rotate(112.5deg); } /* 10% */
-        .seg-4 { transform: rotate(157.5deg); } /* 5% */
-        .seg-5 { transform: rotate(202.5deg); } /* 15% */
-        .seg-6 { transform: rotate(247.5deg); } /* Casi */
-        .seg-7 { transform: rotate(292.5deg); } /* 10% */
-        .seg-8 { transform: rotate(337.5deg); } /* 5% */
-
-        .wheel-pointer {
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 50px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c2c2c"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg>'); /* Triangulo simple */
-            z-index: 10; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.3));
-        }
-        
-        .wheel-center {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 50px; height: 50px; background: white; border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); border: 4px solid #2c2c2c;
-            z-index: 5;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem;
-        }
-
+        .wheel-segment { position: absolute; top: 0; left: 50%; width: 2px; height: 50%; margin-left: -1px; transform-origin: bottom center; padding: 0; pointer-events: none; }
+        .segment-text { position: absolute; top: 25px; left: 50%; transform: translateX(-50%) rotate(90deg); font-weight: 800; font-size: 0.95rem; white-space: nowrap; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); display: flex; align-items: center; gap: 5px; }
+        .seg-1 { transform: rotate(22.5deg); } .seg-2 { transform: rotate(67.5deg); } .seg-3 { transform: rotate(112.5deg); } .seg-4 { transform: rotate(157.5deg); }
+        .seg-5 { transform: rotate(202.5deg); } .seg-6 { transform: rotate(247.5deg); } .seg-7 { transform: rotate(292.5deg); } .seg-8 { transform: rotate(337.5deg); }
+        .wheel-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 40px; height: 50px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232c2c2c"><path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/></svg>'); z-index: 10; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.3)); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); border: 4px solid #2c2c2c; z-index: 5; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; }
         .modal-content { position: relative; text-align: center; color: white; }
+        .btn-spin { margin-top: 30px; background: #FFD700; color: #333; padding: 15px 40px; border: none; border-radius: 50px; font-size: 1.3rem; font-weight: 800; cursor: pointer; box-shadow: 0 0 20px #FFD700; transition: transform 0.2s; text-transform: uppercase; letter-spacing: 2px; }
+        .btn-spin:active { transform: scale(0.95); } .btn-spin:disabled { background: #ccc; box-shadow: none; color: #666; }
+        .close-wheel { position: absolute; top: -40px; right: 0; font-size: 2rem; color: white; background: none; border: none; cursor: pointer; }
         
-        .btn-spin {
-            margin-top: 30px;
-            background: #FFD700; color: #333; padding: 15px 40px;
-            border: none; border-radius: 50px; font-size: 1.3rem; font-weight: 800; cursor: pointer;
-            box-shadow: 0 0 20px #FFD700;
-            transition: transform 0.2s;
-            text-transform: uppercase; letter-spacing: 2px;
-        }
-        .btn-spin:active { transform: scale(0.95); }
-        .btn-spin:disabled { background: #ccc; box-shadow: none; color: #666; }
-        
-        .close-wheel { 
-            position: absolute; top: -40px; right: 0; 
-            font-size: 2rem; color: white; background: none; border: none; cursor: pointer; 
-        }
-
-        /* Banner de descuento en el carrito */
-        .cart-promo-banner {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
-            padding: 15px; border-radius: 12px; margin-bottom: 15px;
-            display: flex; align-items: center; gap: 15px; color: white;
-            font-weight: bold; font-size: 0.95rem;
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4);
-            animation: slideDown 0.5s ease;
-        }
-        .cart-promo-banner i { font-size: 1.5rem; background: rgba(255,255,255,0.2); padding: 8px; border-radius: 50%; }
-
-        /* --- NAV & UI --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; height: var(--nav-height); display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 500; border-top-left-radius: 20px; border-top-right-radius: 20px; }
+        /* --- CART & UI --- */
+        .cart-promo-banner { background: linear-gradient(45deg, #2ecc71, #27ae60); padding: 15px; border-radius: 12px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; color: white; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4); animation: slideDown 0.5s ease; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; height: var(--nav-height); display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 500; border-top-left-radius: 20px; border-top-right-radius: 20px; transition: background 0.3s; }
         .nav-item { text-decoration: none; color: #bbb; display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; gap: 4px; transition: color 0.3s; }
         .nav-item.active { color: var(--dark); }
         .nav-cart-cont { position: relative; }
         .nav-badge { position: absolute; top: -6px; right: -8px; background: var(--primary); color: var(--dark); font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; opacity: 0; transition: 0.3s; transform: scale(0); }
         .nav-badge.show { opacity: 1; transform: scale(1); }
-
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 900; opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(3px); }
         .overlay.active { opacity: 1; visibility: visible; }
-        .cart-sheet { position: fixed; bottom: -100%; left: 0; width: 100%; background: white; z-index: 1000; border-top-left-radius: 25px; border-top-right-radius: 25px; padding: 20px; max-height: 85vh; display: flex; flex-direction: column; transition: bottom 0.4s cubic-bezier(0.19, 1, 0.22, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }
+        .cart-sheet { position: fixed; bottom: -100%; left: 0; width: 100%; background: var(--card-bg); z-index: 1000; border-top-left-radius: 25px; border-top-right-radius: 25px; padding: 20px; max-height: 85vh; display: flex; flex-direction: column; transition: bottom 0.4s cubic-bezier(0.19, 1, 0.22, 1), background 0.3s; box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }
         .cart-sheet.active { bottom: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; color: var(--dark); }
         .cart-items { overflow-y: auto; flex-grow: 1; padding-bottom: 20px; padding-right: 5px; }
-        .cart-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; background: #f9f9f9; padding: 10px; border-radius: 12px; }
+        .cart-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; background: var(--item-bg); padding: 10px; border-radius: 12px; transition: background 0.3s; }
         .cart-row img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .qty-box { display: flex; align-items: center; background: white; border-radius: 8px; padding: 2px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .qty-box button { background: none; border: none; padding: 5px 10px; font-weight: bold; cursor: pointer; }
+        .qty-box { display: flex; align-items: center; background: white; border-radius: 8px; padding: 2px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.3s; }
+        .qty-box button { background: none; border: none; padding: 5px 10px; font-weight: bold; cursor: pointer; color: var(--dark); }
         .btn-whatsapp { width: 100%; padding: 16px; background: #25D366; color: white; border: none; border-radius: 15px; font-size: 1rem; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
-        .toast { position: fixed; top: 90px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--dark); color: white; padding: 12px 25px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 1200; opacity: 0; transition: 0.4s; pointer-events: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .toast { position: fixed; top: 90px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--dark); color: var(--cream-bg); padding: 12px 25px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 1200; opacity: 0; transition: 0.4s; pointer-events: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <img src="https://latanadelzorro.github.io/Pagina-web/img/icono_vectorizado.svg" alt="Logo" class="loader-logo">
+        <div class="loader-spinner"></div>
+        <p style="margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; color: var(--primary-dark);">Cargando...</p>
+    </div>
 
     <!-- HEADER -->
     <header class="app-header">
@@ -302,10 +289,13 @@
                 <small>Montoro, Córdoba</small>
             </div>
         </div>
-        <button class="cart-btn-top" onclick="openCart()">
-            <i class="fas fa-shopping-bag"></i>
-            <span class="badge-dot" id="top-dot"></span>
-        </button>
+        <div class="header-actions">
+            <button class="btn-icon-top" onclick="toggleTheme()"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <button class="btn-icon-top" onclick="openCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge-dot" id="top-dot"></span>
+            </button>
+        </div>
     </header>
 
     <!-- HERO -->
@@ -349,14 +339,39 @@
             <button class="cat-chip" onclick="filter('Tradicional', this)">Tradicional</button>
             <button class="cat-chip" onclick="filter('Navideño', this)">Navidad</button>
             <button class="cat-chip" onclick="filter('Semana Santa', this)">Semana Santa</button>
+            <button class="cat-chip" onclick="filter('Favoritos', this)" style="border-color: var(--primary); color: var(--primary-dark);"><i class="fas fa-heart"></i> Favoritos</button>
         </div>
         <div class="product-grid" id="grid"></div>
     </div>
 
-    <!-- RULETA FLOTANTE (Icono regalo animado) -->
-    <div class="float-wheel-btn" id="wheel-trigger" onclick="openWheel()">
-        🎁
+    <!-- VISTA RAPIDA PRODUCTO MODAL -->
+    <div class="product-modal" id="product-modal">
+        <div class="product-modal-content">
+            <div class="pm-img-box">
+                <button class="pm-close" onclick="closeProduct()">&times;</button>
+                <img src="" id="pm-img" alt="">
+            </div>
+            <div class="pm-body">
+                <h2 class="pm-title" id="pm-title">Producto</h2>
+                <div class="cat-tag-small" id="pm-cat" style="margin-bottom: 10px;">Categoria</div>
+                <p class="pm-desc" id="pm-desc">Descripción...</p>
+                
+                <div class="pm-meta">
+                    <span class="pm-label"><i class="fas fa-exclamation-circle"></i> Alérgenos e Ingredientes</span>
+                    <div class="allergen-list" id="pm-allergens">
+                        <!-- Se rellena con JS -->
+                    </div>
+                </div>
+
+                <button class="pm-btn-add" id="pm-btn-add">
+                    Añadir a la Cesta <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
     </div>
+
+    <!-- RULETA FLOTANTE -->
+    <div class="float-wheel-btn" id="wheel-trigger" onclick="openWheel()">🎁</div>
 
     <!-- MODAL RULETA PRO -->
     <div class="wheel-modal" id="wheel-modal">
@@ -364,14 +379,11 @@
             <button class="close-wheel" onclick="closeWheel()">&times;</button>
             <h2 style="color:#FFD700; text-shadow:0 2px 10px rgba(0,0,0,0.5);">¡Prueba tu Suerte!</h2>
             <p style="margin-bottom:20px; opacity:0.9;">Gira la ruleta y gana descuentos exclusivos.</p>
-            
-            <!-- Contenedor Ruleta con Luces -->
             <div style="display:flex; justify-content:center;">
                 <div class="wheel-outer-ring">
-                    <div class="wheel-pointer"></div> <!-- Flecha arriba -->
+                    <div class="wheel-pointer"></div>
                     <div class="wheel-wrapper">
                         <div class="the-wheel" id="the-wheel">
-                            <!-- 8 Segmentos visuales -->
                             <div class="wheel-segment seg-1"><div class="segment-text">15%</div></div>
                             <div class="wheel-segment seg-2"><div class="segment-text">CASI 🥺</div></div>
                             <div class="wheel-segment seg-3"><div class="segment-text">10%</div></div>
@@ -385,15 +397,12 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="result-area">
-                <button class="btn-spin" id="btn-spin" onclick="spinWheel()">¡GIRAR AHORA!</button>
-            </div>
+            <div id="result-area"><button class="btn-spin" id="btn-spin" onclick="spinWheel()">¡GIRAR AHORA!</button></div>
         </div>
     </div>
 
     <!-- FOOTER -->
-    <div style="text-align: center; padding: 50px 20px 20px; font-size: 0.8rem; color: #aaa;">
+    <div style="text-align: center; padding: 50px 20px 20px; font-size: 0.8rem; color: var(--gray);">
         <p>El Zorro Repostería Profesional<br>Montoro, Córdoba</p>
         <p style="margin-top: 5px; opacity: 0.6;">&copy; 2025</p>
     </div>
@@ -403,35 +412,25 @@
         <a href="#" class="nav-item active" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i class="fas fa-home"></i><span>Inicio</span></a>
         <a href="https://wa.me/34624416475" target="_blank" class="nav-item"><i class="fab fa-whatsapp"></i><span>Hablar</span></a>
         <div class="nav-item" onclick="openCart()" style="cursor:pointer;">
-            <div class="nav-cart-cont">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="nav-badge" id="nav-badge">0</span>
-            </div>
+            <div class="nav-cart-cont"><i class="fas fa-shopping-cart"></i><span class="nav-badge" id="nav-badge">0</span></div>
             <span>Cesta</span>
         </div>
     </nav>
 
     <!-- CARRITO -->
-    <div class="overlay" id="overlay" onclick="closeCart()"></div>
+    <div class="overlay" id="overlay" onclick="closeCart(); closeProduct();"></div>
     <div class="cart-sheet" id="cart-sheet">
         <div class="cart-header">
             <h3><i class="fas fa-receipt"></i> Tu Pedido</h3>
-            <button onclick="closeCart()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <button onclick="closeCart()" style="border:none; background:none; font-size:1.5rem; cursor:pointer; color:var(--dark);">&times;</button>
         </div>
-        
-        <!-- AREA DEL CODIGO PROMOCIONAL -->
         <div id="promo-area"></div>
-
         <div class="cart-items" id="cart-items"></div>
-        
         <div style="margin-top:auto;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold; font-size:1.1rem;">
-                <span>Total Artículos:</span>
-                <span id="total-items">0</span>
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold; font-size:1.1rem; color:var(--dark);">
+                <span>Total Artículos:</span><span id="total-items">0</span>
             </div>
-            <button class="btn-whatsapp" onclick="sendOrder()">
-                Realizar Pedido por WhatsApp <i class="fab fa-whatsapp"></i>
-            </button>
+            <button class="btn-whatsapp" onclick="sendOrder()">Realizar Pedido por WhatsApp <i class="fab fa-whatsapp"></i></button>
         </div>
     </div>
 
@@ -440,37 +439,118 @@
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        /* --- DATOS --- */
-        const productos = [
-            { id: 1, nombre: "Roscos de Vino", desc: "Receta montoreña con vino tinto y ajonjolí.", cat: ["Tradicional", "Navideño"], img: "https://latanadelzorro.github.io/Pagina-web/img/roscos-vino.jpeg},
-            { id: 2, nombre: "Tiramisú Artesano", desc: "Capas de mascarpone, bizcocho y café.", cat: ["Tradicional"], img: "img/tiramisu.jpg" },
-            { id: 3, nombre: "Mantecados Clásicos", desc: "De canela y limón. Textura suave.", cat: ["Navideño"], img: "img/mantecados.jpeg" },
-            { id: 4, nombre: "Galletas Jengibre", desc: "Divertidas y crujientes con miel.", cat: ["Navideño"], img: "img/galletas gengibre.jpeg" },
-            { id: 5, nombre: "Palmeras Hojaldre", desc: "Mantequilla pura y caramelizado.", cat: ["Tradicional"], img: "img/palmeras.avif" },
-            { id: 6, nombre: "Roscos de Azúcar", desc: "Fritos del día, tiernos y rebozados.", cat: ["Tradicional"], img: "img/roscosdeazucar.jpg" },
-            { id: 7, nombre: "Pestiños de Miel", desc: "Clásico con vino, anís y baño de miel.", cat: ["Semana Santa"], img: "img/pestiños.jpg" },
-            { id: 8, nombre: "Magdalenas Caseras", desc: "Esponjosas, con alto copete, aceite de oliva y ralladura de limón.", cat: ["Tradicional"], img: "img/macdalenas.jpeg" },
+        /* --- PRELOADER LOGIC --- */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('preloader');
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }, 1200); // Tiempo de gracia para ver el logo
+        });
 
+        /* --- MODO OSCURO LOGICA --- */
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('zorro_theme', isDark ? 'dark' : 'light');
+            updateThemeIcon(isDark);
+        }
+
+        function updateThemeIcon(isDark) {
+            const icon = document.getElementById('theme-icon');
+            if(isDark) {
+                icon.className = 'fas fa-sun';
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212');
+            } else {
+                icon.className = 'fas fa-moon';
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFBF2');
+            }
+        }
+
+        /* --- DATOS EXTENDIDOS --- */
+        const productos = [
+            { id: 1, nombre: "Roscos de Vino", desc: "Receta montoreña con vino tinto y ajonjolí.", cat: ["Tradicional", "Navideño"], img: "img/roscos-vino.jpeg", alergenos: ["Gluten", "Sulfitos", "Sésamo"] },
+            { id: 2, nombre: "Tiramisú Artesano", desc: "Capas de mascarpone, bizcocho y café.", cat: ["Tradicional"], img: "img/tiramisu.jpg", alergenos: ["Lácteos", "Gluten", "Huevo"] },
+            { id: 3, nombre: "Mantecados Clásicos", desc: "De canela y limón. Textura suave.", cat: ["Navideño"], img: "img/mantecados.jpeg", alergenos: ["Gluten", "Frutos Secos"] },
+            { id: 4, nombre: "Galletas Jengibre", desc: "Divertidas y crujientes con miel.", cat: ["Navideño"], img: "img/galletas gengibre.jpeg", alergenos: ["Gluten", "Huevo"] },
+            { id: 5, nombre: "Palmeras Hojaldre", desc: "Mantequilla pura y caramelizado.", cat: ["Tradicional"], img: "img/palmeras.avif", alergenos: ["Gluten", "Lácteos"] },
+            { id: 6, nombre: "Roscos de Azúcar", desc: "Fritos del día, tiernos y rebozados.", cat: ["Tradicional"], img: "img/roscosdeazucar.jpg", alergenos: ["Gluten", "Huevo"] },
+            { id: 7, nombre: "Pestiños de Miel", desc: "Clásico con vino, anís y baño de miel.", cat: ["Semana Santa"], img: "img/pestiños.jpg", alergenos: ["Gluten", "Sulfitos"] },
+            { id: 8, nombre: "Magdalenas Caseras", desc: "Esponjosas, con alto copete, aceite de oliva y ralladura de limón.", cat: ["Tradicional"], img: "img/macdalenas.jpeg", alergenos: ["Gluten", "Huevo"] },
         ];
 
         let cart = JSON.parse(localStorage.getItem('zorro_cart_v2')) || {};
-        
-        // --- RULETA LOGICA (8 SEGMENTOS) ---
-        // Segmentos de 45 grados cada uno (360 / 8)
-        // La fleriba (visuhttps://latanadelzorro.github.io/Pagina-web/img/pestiños.jpgina qué segmento está en el TOP (flecha).
-        // Indice 0 es el primer trozo.
+        let favorites = JSON.parse(localStorage.getItem('zorro_favs')) || [];
+
+        /* --- FUNCIONES FAVORITOS --- */
+        function toggleFav(id, event) {
+            if(event) event.stopPropagation(); // Para no abrir la vista rápida
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('Eliminado de favoritos');
+            } else {
+                favorites.push(id);
+                showToast('Guardado en favoritos');
+            }
+            localStorage.setItem('zorro_favs', JSON.stringify(favorites));
+            
+            // Re-render si estamos en la pestaña favoritos
+            const activeTab = document.querySelector('.cat-chip.active');
+            if(activeTab && activeTab.innerText.includes('Favoritos')) {
+                renderGrid('Favoritos');
+            } else {
+                renderGrid(activeTab ? (activeTab.innerText === 'Todo' ? 'todos' : activeTab.innerText) : 'todos');
+            }
+        }
+
+        /* --- VISTA RAPIDA (MODAL) --- */
+        function openProduct(id) {
+            const p = productos.find(x => x.id === id);
+            if(!p) return;
+
+            document.getElementById('pm-img').src = p.img;
+            document.getElementById('pm-title').innerText = p.nombre;
+            document.getElementById('pm-desc').innerText = p.desc + " Elaborados a mano cada mañana para asegurar la máxima frescura.";
+            document.getElementById('pm-cat').innerText = p.cat.join(" | ");
+            
+            // Alérgenos
+            const alDiv = document.getElementById('pm-allergens');
+            alDiv.innerHTML = p.alergenos.map(al => `<span class="allergen-tag"><i class="fas fa-check"></i> ${al}</span>`).join('');
+            
+            // Botón acción
+            document.getElementById('pm-btn-add').onclick = function() {
+                addToCart(p.id, this);
+                setTimeout(closeProduct, 300);
+            };
+
+            document.getElementById('overlay').classList.add('active');
+            const modal = document.getElementById('product-modal');
+            modal.style.display = 'flex';
+            // Truco para animar display:flex
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeProduct() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            setTimeout(() => { if(!document.getElementById('cart-sheet').classList.contains('active')) modal.style.display = 'none'; }, 300);
+        }
+
+
+        /* --- RULETA LOGICA --- */
         const prizes = [
-            { id: 'NAP15', label: '15% Dto - NAP15', color: '#FFD700' },  // Seg 1 (0-45)
-            { id: 'CASI', label: 'Casi Casi... 🥺', color: '#ff4757' },   // Seg 2 (45-90)
-            { id: 'NAP10', label: '10% Dto - NAP10', color: '#2ed573' },  // Seg 3 (90-135)
-            { id: 'NAP5', label: '5% Dto - NAP5', color: '#1e90ff' },     // Seg 4 (135-180)
-            { id: 'NAP15', label: '15% Dto - NAP15', color: '#FFD700' },  // Seg 5 (180-225)
-            { id: 'CASI', label: 'Casi Casi... 🥺', color: '#ff4757' },   // Seg 6 (225-270)
-            { id: 'NAP10', label: '10% Dto - NAP10', color: '#2ed573' },  // Seg 7 (270-315)
-            { id: 'NAP5', label: '5% Dto - NAP5', color: '#1e90ff' }      // Seg 8 (315-360)
+            { id: 'NAP15', label: '15% Dto - NAP15', color: '#FFD700' },  
+            { id: 'CASI', label: 'Casi Casi... 🥺', color: '#ff4757' },   
+            { id: 'NAP10', label: '10% Dto - NAP10', color: '#2ed573' },  
+            { id: 'NAP5', label: '5% Dto - NAP5', color: '#1e90ff' },     
+            { id: 'NAP15', label: '15% Dto - NAP15', color: '#FFD700' },  
+            { id: 'CASI', label: 'Casi Casi... 🥺', color: '#ff4757' },   
+            { id: 'NAP10', label: '10% Dto - NAP10', color: '#2ed573' },  
+            { id: 'NAP5', label: '5% Dto - NAP5', color: '#1e90ff' }      
         ];
 
-        // Estado de la ruleta
         let storedCode = localStorage.getItem('zorro_promo_code');
         let hasSpun = localStorage.getItem('zorro_has_spun');
 
@@ -478,9 +558,7 @@
             const btn = document.getElementById('wheel-trigger');
             if (hasSpun === 'true') {
                 btn.classList.add('hidden'); 
-                if (storedCode && storedCode !== 'CASI') {
-                    showPromoInCart(storedCode);
-                }
+                if (storedCode && storedCode !== 'CASI') showPromoInCart(storedCode);
             }
         }
 
@@ -489,104 +567,82 @@
 
         function spinWheel() {
             if(hasSpun === 'true') return;
-
             const btn = document.getElementById('btn-spin');
-            btn.disabled = true;
-            btn.innerText = "Girando...";
-
-            // Elegimos un premio al azar
+            btn.disabled = true; btn.innerText = "Girando...";
             const winnerIndex = Math.floor(Math.random() * prizes.length);
             const winner = prizes[winnerIndex];
-
-            // Calculamos el angulo.
-            // Para que el segmento X quede arriba, la ruleta debe girar:
-            // 360 * vueltas - (angulo_del_segmento)
-            // Centro del segmento: (Index * 45) + 22.5
-            
             const segmentAngle = (winnerIndex * 45) + 22.5; 
-            const spins = 5; // Vueltas
-            // Invertimos el ángulo porque CSS rotate es Clockwise
+            const spins = 5; 
             const finalRotate = (360 * spins) - segmentAngle; 
-
             const wheel = document.getElementById('the-wheel');
             wheel.style.transform = `rotate(${finalRotate}deg)`;
-
-            setTimeout(() => {
-                finishSpin(winner);
-            }, 5000); // Coincide con CSS transition
+            setTimeout(() => { finishSpin(winner); }, 5000); 
         }
 
         function finishSpin(winner) {
             localStorage.setItem('zorro_has_spun', 'true');
             hasSpun = 'true';
-
             const resDiv = document.getElementById('result-area');
-            
             if (winner.id === 'CASI') {
-                resDiv.innerHTML = `<h3 style="color:#ff4757">¡Oooh! Casi...</h3><p>Hoy no hubo suerte, pero prueba nuestros dulces.</p>`;
+                resDiv.innerHTML = `<h3 style="color:#ff4757">¡Oooh! Casi...</h3><p>Hoy no hubo suerte.</p>`;
                 localStorage.setItem('zorro_promo_code', 'CASI');
             } else {
-                resDiv.innerHTML = `<h3 style="color:#2ed573">¡GANASTE! 🎉</h3><p style="font-size:1.2rem;">${winner.label}</p><p>Descuento guardado en tu cesta.</p>`;
+                resDiv.innerHTML = `<h3 style="color:#2ed573">¡GANASTE! 🎉</h3><p style="font-size:1.2rem;">${winner.label}</p><p>Guardado en cesta.</p>`;
                 localStorage.setItem('zorro_promo_code', winner.id);
-                storedCode = winner.id;
-                showPromoInCart(winner.id);
-                // Lluvia de confeti masiva
+                storedCode = winner.id; showPromoInCart(winner.id);
                 var end = Date.now() + (2 * 1000);
-                (function frame() {
-                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
-                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
-                    if (Date.now() < end) requestAnimationFrame(frame);
-                }());
+                (function frame() { confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } }); confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } }); if (Date.now() < end) requestAnimationFrame(frame); }());
             }
-
-            setTimeout(() => {
-                closeWheel();
-                document.getElementById('wheel-trigger').classList.add('hidden');
-                if(winner.id !== 'CASI') openCart(); 
-            }, 4000);
+            setTimeout(() => { closeWheel(); document.getElementById('wheel-trigger').classList.add('hidden'); if(winner.id !== 'CASI') openCart(); }, 4000);
         }
 
         function showPromoInCart(code) {
             const area = document.getElementById('promo-area');
-            let text = "";
-            let subtext = "";
+            let text = "", subtext = "";
             if(code === 'NAP15') { text = "Navidad Mágica"; subtext = "-15% Descuento"; }
             if(code === 'NAP10') { text = "Dulce Navidad"; subtext = "-10% Descuento"; }
             if(code === 'NAP5') { text = "Galletita Feliz"; subtext = "-5% Descuento"; }
-
-            area.innerHTML = `
-                <div class="cart-promo-banner">
-                    <i class="fas fa-gift"></i>
-                    <div style="flex-grow:1;">
-                        <div>${text}</div>
-                        <div style="font-size:0.8rem; opacity:0.9">${subtext} (Código: ${code})</div>
-                    </div>
-                    <i class="fas fa-check"></i>
-                </div>
-            `;
+            area.innerHTML = `<div class="cart-promo-banner"><i class="fas fa-gift"></i><div style="flex-grow:1;"><div>${text}</div><div style="font-size:0.8rem; opacity:0.9">${subtext}</div></div><i class="fas fa-check"></i></div>`;
         }
 
         // --- PRINCIPAL ---
         document.addEventListener('DOMContentLoaded', () => {
-            renderGrid('todos');
-            updateUI();
-            checkWheelState(); 
+            const savedTheme = localStorage.getItem('zorro_theme');
+            if(savedTheme === 'dark') { document.body.classList.add('dark-mode'); updateThemeIcon(true); }
+            renderGrid('todos'); updateUI(); checkWheelState(); 
         });
 
         function renderGrid(filtro) {
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
-            const items = filtro === 'todos' ? productos : productos.filter(p => p.cat.includes(filtro));
+            let items = [];
+
+            if (filtro === 'todos') {
+                items = productos;
+            } else if (filtro === 'Favoritos') {
+                items = productos.filter(p => favorites.includes(p.id));
+                if(items.length === 0) {
+                    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; opacity:0.6;"><i class="far fa-heart" style="font-size:3rem; margin-bottom:10px;"></i><p>No tienes favoritos guardados aún.</p></div>`;
+                    return;
+                }
+            } else {
+                items = productos.filter(p => p.cat.includes(filtro));
+            }
+
             items.forEach(p => {
                 const div = document.createElement('div');
                 div.className = 'product-card';
+                const isFav = favorites.includes(p.id);
                 const fallback = "this.src='https://placehold.co/300?text=El+Zorro'";
                 div.innerHTML = `
-                    <div class="img-wrapper">
+                    <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFav(${p.id}, event)">
+                        <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                    </button>
+                    <div class="img-wrapper" onclick="openProduct(${p.id})">
                         <img src="${p.img}" loading="lazy" alt="${p.nombre}" onerror="${fallback}">
-                        <div class="btn-add-mini" onclick="addToCart(${p.id}, this)"><i class="fas fa-plus"></i></div>
+                        <div class="btn-add-mini" onclick="event.stopPropagation(); addToCart(${p.id}, this)"><i class="fas fa-plus"></i></div>
                     </div>
-                    <div class="info-wrapper">
+                    <div class="info-wrapper" onclick="openProduct(${p.id})" style="cursor:pointer;">
                         <h4>${p.nombre}</h4>
                         <p>${p.desc}</p>
                         <div class="cat-tag-small">${p.cat[0]}</div>
@@ -599,7 +655,7 @@
         function addToCart(id, btn) {
             const item = productos.find(p => p.id === id);
             if(cart[id]) cart[id].qty++; else cart[id] = { ...item, qty: 1 };
-            btn.classList.add('active'); setTimeout(() => btn.classList.remove('active'), 300);
+            if(btn) { btn.classList.add('active'); setTimeout(() => btn.classList.remove('active'), 300); }
             showToast(`Añadido: ${item.nombre}`);
             saveCart(); updateUI();
         }
@@ -626,13 +682,13 @@
         function renderCartItems() {
             const div = document.getElementById('cart-items');
             const items = Object.values(cart);
-            if(items.length === 0) { div.innerHTML = `<div style='text-align:center; margin-top:40px; opacity:0.5;'><i class="fas fa-shopping-basket" style="font-size:3rem; margin-bottom:15px; color:#ccc;"></i><p>Tu cesta está vacía.</p></div>`; return; }
+            if(items.length === 0) { div.innerHTML = `<div style='text-align:center; margin-top:40px; opacity:0.5;'><i class="fas fa-shopping-basket" style="font-size:3rem; margin-bottom:15px; color:var(--gray);"></i><p>Tu cesta está vacía.</p></div>`; return; }
             div.innerHTML = items.map(i => `
                 <div class="cart-row">
                     <img src="${i.img}" alt="${i.nombre}">
                     <div style="flex-grow:1">
                         <div style="font-weight:bold; font-size:0.95rem; color:var(--dark);">${i.nombre}</div>
-                        <div style="font-size:0.8rem; color:#777;">${i.cat[0]}</div>
+                        <div style="font-size:0.8rem; color:var(--gray);">${i.cat[0]}</div>
                     </div>
                     <div class="qty-box">
                         <button onclick="updateQty(${i.id}, -1)">-</button>
@@ -649,11 +705,9 @@
         function sendOrder() {
             const items = Object.values(cart);
             if(items.length === 0) return;
-            
             let msg = "👋 Hola El Zorro! Me gustaría hacer este pedido:%0A%0A";
             items.forEach(i => msg += `▪️ *${i.nombre}* (x${i.qty})%0A`);
             msg += `%0A📦 *Total unidades:* ${document.getElementById('total-items').innerText}`;
-            
             if (storedCode && storedCode !== 'CASI') {
                 let promoText = "";
                 if(storedCode === 'NAP15') promoText = "Navidad Mágica (-15%)";
@@ -661,7 +715,6 @@
                 if(storedCode === 'NAP5') promoText = "Galletita Feliz (-5%)";
                 msg += `%0A%0A🎁 *CÓDIGO GANADO:* ${promoText} [${storedCode}]`;
             }
-
             msg += "%0A%0AQuedo a la espera de confirmación. ¡Gracias!";
             window.open(`https://wa.me/34624416475?text=${msg}`, '_blank');
         }
