@@ -442,13 +442,15 @@
     <script>
         /* --- DATOS --- */
         const productos = [
-            { id: 1, nombre: "Roscos de Vino", desc: "Receta montoreña con vino tinto y ajonjolí.", cat: ["Tradicional", "Navideño"], img: "https://latanadelzorro.github.io/Pagina-web/img/roscos-vino.jpeg" },
-            { id: 2, nombre: "Tiramisú Artesano", desc: "Capas de mascarpone, bizcocho y café.", cat: ["Tradicional"], img: "https://latanadelzorro.github.io/Pagina-web/img/tiramisu.jpg" },
-            { id: 3, nombre: "Mantecados Clásicos", desc: "De canela y limón. Textura suave.", cat: ["Navideño"], img: "https://latanadelzorro.github.io/Pagina-web/img/mantecados.jpeg" },
-            { id: 4, nombre: "Galletas Jengibre", desc: "Divertidas y crujientes con miel.", cat: ["Navideño"], img: "https://latanadelzorro.github.io/Pagina-web/img/galletas%20gengibre.jpeg" },
-            { id: 5, nombre: "Palmeras Hojaldre", desc: "Mantequilla pura y caramelizado.", cat: ["Tradicional"], img: "https://latanadelzorro.github.io/Pagina-web/img/palmeras.avif" },
-            { id: 6, nombre: "Roscos de Azúcar", desc: "Fritos del día, tiernos y rebozados.", cat: ["Tradicional"], img: "https://latanadelzorro.github.io/Pagina-web/img/roscosdeazucar.jpg" },
-            { id: 7, nombre: "Pestiños de Miel", desc: "Clásico con vino, anís y baño de miel.", cat: ["Semana Santa"], img: "https://latanadelzorro.github.io/Pagina-web/img/pestiños.jpg" }
+            { id: 1, nombre: "Roscos de Vino", desc: "Receta montoreña con vino tinto y ajonjolí.", cat: ["Tradicional", "Navideño"], img: "img/roscos-vino.jpeg" },
+            { id: 2, nombre: "Tiramisú Artesano", desc: "Capas de mascarpone, bizcocho y café.", cat: ["Tradicional"], img: "img/tiramisu.jpg" },
+            { id: 3, nombre: "Mantecados Clásicos", desc: "De canela y limón. Textura suave.", cat: ["Navideño"], img: "img/mantecados.jpeg" },
+            { id: 4, nombre: "Galletas Jengibre", desc: "Divertidas y crujientes con miel.", cat: ["Navideño"], img: "img/galletas gengibre.jpeg" },
+            { id: 5, nombre: "Palmeras Hojaldre", desc: "Mantequilla pura y caramelizado.", cat: ["Tradicional"], img: "img/palmeras.avif" },
+            { id: 6, nombre: "Roscos de Azúcar", desc: "Fritos del día, tiernos y rebozados.", cat: ["Tradicional"], img: "img/roscosdeazucar.jpg" },
+            { id: 7, nombre: "Pestiños de Miel", desc: "Clásico con vino, anís y baño de miel.", cat: ["Semana Santa"], img: "img/pestiños.jpg" },
+            { id: 8, nombre: "Magdalenas Caseras", desc: "Esponjosas, con alto copete, aceite de oliva y ralladura de limón.", cat: ["Tradicional"], img: "img/macdalenas.jpeg" },
+
         ];
 
         let cart = JSON.parse(localStorage.getItem('zorro_cart_v2')) || {};
