@@ -1,1321 +1,550 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Zorro - Repostería Profesional</title>
-    <link rel="icon" type="image/svg+xml" href="img/icono_vectorizado.svg">
-    <meta name="description" content="Repostería artesanal de alta calidad. Productos horneados con ingredientes naturales y recetas tradicionales.">
-   
-    <!-- Open Graph para SEO -->
-    <meta property="og:title" content="El Zorro - Repostería Profesional">
-    <meta property="og:description" content="Descubre nuestra selección de postres artesanales elaborados con ingredientes de temporada.">
-    <meta property="og:image" content="img/tiramisu.jpg">
-    <meta property="og:url" content="https://tu-usuario.github.io/el-zorro-reposteria">
-   
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-   
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>El Zorro | Nuevo Obrador en Montoro</title>
+    
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Nueva pastelería artesanal en Montoro, Córdoba. Dulces tradicionales y reparto a domicilio.">
+
+    <!-- Fuentes: Playfair (Elegante) y DM Sans (Moderna) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* main.css - Estilos generales para El Zorro Repostería Profesional */
-        /* Reset y base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- SISTEMA DE DISEÑO --- */
+        :root {
+            --primary: #D4AF37; /* Dorado */
+            --primary-dark: #b59022;
+            --dark: #1a1a1a;
+            --cream-bg: #FFFBF2; /* Fondo color crema/harina */
+            --white: #ffffff;
+            --gray: #666666;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --nav-height: 70px;
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.06);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream-bg);
+            color: var(--dark);
+            padding-bottom: calc(var(--nav-height) + 30px);
+            overflow-x: hidden;
         }
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+        /* --- HEADER FLOTANTE --- */
+        .app-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(255, 251, 242, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand img { height: 38px; }
+        .brand-text { line-height: 1; }
+        .brand-text h1 { font-size: 1.1rem; margin: 0; color: var(--dark); }
+        .brand-text small { font-size: 0.7rem; color: var(--primary-dark); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+
+        .cart-btn-top { position: relative; background: none; border: none; font-size: 1.3rem; padding: 5px; }
+        .badge-dot {
+            position: absolute; top: 5px; right: 2px; width: 8px; height: 8px;
+            background: var(--primary); border-radius: 50%; opacity: 0; transition: 0.3s;
         }
-        /* Header - Centrado mejorado */
-        .site-header {
-            background: linear-gradient(to bottom, #fff, #f9f9f9);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Centrado adicional */
-        }
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin-right: 12px;
-            transition: transform 0.3s;
-        }
-        .logo:hover {
-            transform: rotate(5deg);
-        }
-        .logo-text h1 {
-            font-size: 2rem;
-            color: #8B4513;
-        }
-        .logo-text span {
-            font-size: 1rem;
-            color: #666;
-            display: block;
-        }
-        .main-navigation {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        .main-navigation ul {
-            display: flex;
-            list-style: none;
-            justify-content: center; /* Centrado del menú */
-        }
-        .main-navigation li {
-            margin-left: 2.5rem;
-        }
-        .main-navigation a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            transition: color 0.3s, border-bottom 0.3s;
-            padding-bottom: 0.2rem;
-        }
-        .main-navigation a:hover {
-            color: #8B4513;
-            border-bottom: 2px solid #8B4513;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
-        .cart-icon {
+        .badge-dot.show { opacity: 1; }
+
+        /* --- HERO SECTION (PORTADA IMPACTANTE) --- */
+        .hero-section {
             position: relative;
-            cursor: pointer;
-            font-size: 1.6rem;
-            color: #333;
-            transition: color 0.3s, transform 0.3s;
-        }
-        .cart-icon:hover {
-            color: #8B4513;
-            transform: scale(1.1);
-        }
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #8B4513;
-            color: #fff;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 0.9rem;
-            display: none; /* Inicialmente oculto */
-            align-items: center;
-            justify-content: center;
-            animation: bounce 0.3s ease-out;
-        }
-        .cart-count.show {
-            display: flex;
-        }
-        @keyframes bounce {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        /* Hero Section - Centrado mejorado para móvil */
-        #hero {
-            position: relative;
-            padding: 6rem 0;
-            background: linear-gradient(to bottom, #f8f4f0, #fff);
+            height: 65vh; /* Ocupa más de la mitad de la pantalla */
+            min-height: 450px;
+            background: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80') center/cover no-repeat;
+            display: flex; align-items: flex-end;
+            margin-bottom: 0;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
             overflow: hidden;
-            text-align: center; /* Centrado general */
         }
-        .hero-slider {
-            position: relative;
-            height: 500px;
-            overflow: hidden;
-            margin: 0 auto; /* Centrado del slider */
+
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2), rgba(0,0,0,0.1));
         }
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-size: cover;
-            background-position: center;
-        }
-        .hero-slide.active {
-            opacity: 1;
-        }
-        .hero-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.2);
-            z-index: 1;
-        }
+
         .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            z-index: 2;
-            max-width: 800px;
-            width: 90%; /* Ajuste para móvil */
-            margin: 0 auto;
+            position: relative; z-index: 2; padding: 30px 20px 50px 20px; color: white;
+            width: 100%; animation: fadeInUp 1s ease;
         }
-        .hero-badge {
-            display: inline-block;
-            background: rgba(139,69,19,0.8);
-            color: #fff;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+
+        .location-tag {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
         }
-        .hero-content h2 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+        .hero-content h2 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 10px; }
+        .hero-content p { font-size: 1rem; opacity: 0.9; margin-bottom: 20px; font-weight: 300; max-width: 300px; }
+        
+        .cta-hero {
+            background: var(--primary); color: var(--dark); text-decoration: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: bold; display: inline-block;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
-        .hero-content p {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+        /* --- BARRA DE INFORMACIÓN --- */
+        .info-bar {
+            display: flex; gap: 15px; overflow-x: auto; padding: 25px 20px;
+            scrollbar-width: none;
         }
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
+        .info-bar::-webkit-scrollbar { display: none; }
+
+        .info-item {
+            flex: 0 0 auto; display: flex; align-items: center; gap: 10px;
+            background: white; padding: 10px 15px; border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03);
         }
-        .hero-stat {
-            text-align: center;
+        .info-item i { color: var(--primary-dark); }
+        .info-item span { font-size: 0.85rem; font-weight: 500; white-space: nowrap; }
+
+        /* --- BIENVENIDA / STORYTELLING --- */
+        .welcome-box {
+            margin: 0 20px 30px 20px;
+            background: white; padding: 25px; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card); text-align: center;
+            position: relative; overflow: hidden;
         }
-        .stat-number {
-            display: block;
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
+        .welcome-box::before {
+            content: '"'; font-family: 'Playfair Display'; font-size: 6rem;
+            position: absolute; top: -20px; left: 10px; color: #f0f0f0; z-index: 0;
         }
-        .stat-label {
-            font-size: 1rem;
-            color: #eee;
+        .welcome-content { position: relative; z-index: 1; }
+        .welcome-content h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .welcome-content p { font-size: 0.95rem; color: var(--gray); line-height: 1.6; margin-bottom: 15px; }
+        .divider { width: 50px; height: 3px; background: var(--primary); margin: 0 auto; }
+
+        /* --- CATEGORÍAS --- */
+        .cat-header { padding: 0 20px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .cat-header h3 { font-size: 1.3rem; }
+        
+        .cat-scroll {
+            display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 20px 20px;
+            scrollbar-width: none;
         }
-        .btn {
-            display: inline-block;
-            background: #8B4513;
-            color: #fff;
-            padding: 1.2rem 2.5rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .btn:hover {
-            background: #A0522D;
-            transform: scale(1.05);
-        }
-        /* Sobre Nosotros - Centrado */
-        #about {
-            padding: 4rem 0;
-            background: #f8f4f0;
-            text-align: center;
-        }
-        #about h2 {
-            font-size: 2.8rem;
-            color: #8B4513;
-            margin-bottom: 2rem;
-        }
-        #about p {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            font-size: 1.1rem;
-            color: #666;
-        }
-        #about .about-img {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin: 2rem auto;
-            display: block; /* Centrado de imagen */
-        }
-        /* Productos Section - Centrado filtros y grid */
-        #destacados {
-            padding: 4rem 0;
-            text-align: center; /* Centrado general */
-        }
-        #destacados h2 {
-            font-size: 2.8rem;
-            margin-bottom: 2.5rem;
-            color: #8B4513;
-        }
-        .catalogo-filtros {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-bottom: 3.5rem;
-            flex-wrap: wrap;
-        }
-        .filtro-pill {
-            background: #f0f0f0;
-            border: none;
-            padding: 0.6rem 1.8rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
+        .cat-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-chip {
+            background: transparent; border: 1px solid #ddd;
+            padding: 8px 20px; border-radius: 50px;
+            white-space: nowrap; font-size: 0.9rem; font-weight: 500; color: var(--gray);
             transition: all 0.3s;
         }
-        .filtro-pill.is-active,
-        .filtro-pill:hover {
-            background: #8B4513;
-            color: #fff;
-            transform: scale(1.05);
+        .cat-chip.active {
+            background: var(--dark); color: white; border-color: var(--dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .grid-productos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            justify-items: center; /* Centrado de items en grid */
+
+        /* --- GRID PRODUCTOS --- */
+        .product-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+            gap: 15px; padding: 0 20px;
         }
-        .producto {
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            transition: transform 0.4s, box-shadow 0.4s;
-            width: 100%;
-            max-width: 300px; /* Límite para centrado */
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Asegura altura uniforme */
+
+        .product-card {
+            background: white; border-radius: var(--radius-md);
+            overflow: hidden; box-shadow: var(--shadow-card);
+            display: flex; flex-direction: column; transition: transform 0.2s;
         }
-        .producto:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        .product-card:active { transform: scale(0.97); }
+
+        .img-wrapper { position: relative; height: 150px; background: #eee; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .btn-add-mini {
+            position: absolute; bottom: 8px; right: 8px;
+            width: 32px; height: 32px; background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer;
+            color: var(--dark); transition: 0.3s;
         }
-        .producto-imagen {
-            flex-shrink: 0;
+        .btn-add-mini.active { background: var(--primary); color: white; transform: rotate(360deg); }
+
+        .info-wrapper { padding: 12px; flex-grow: 1; }
+        .info-wrapper h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; font-family: 'DM Sans'; }
+        .info-wrapper p { font-size: 0.8rem; color: var(--gray); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- BOTTOM NAV & CART --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: white; height: var(--nav-height);
+            display: flex; justify-content: space-around; align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05); z-index: 500;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
         }
-        .producto-imagen img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 0.4s;
+
+        .nav-item {
+            text-decoration: none; color: #aaa; display: flex; flex-direction: column;
+            align-items: center; font-size: 0.7rem; gap: 4px;
         }
-        .producto:hover .producto-imagen img {
-            transform: scale(1.08);
+        .nav-item i { font-size: 1.4rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--dark); }
+        
+        /* Carrito Badge en Nav */
+        .nav-cart-cont { position: relative; }
+        .nav-badge {
+            position: absolute; top: -5px; right: -8px;
+            background: var(--primary); color: var(--dark); font-size: 0.65rem;
+            padding: 2px 5px; border-radius: 10px; font-weight: bold;
+            opacity: 0; transition: 0.3s;
         }
-        .producto-info {
-            padding: 1.8rem;
-            text-align: center; /* Centrado en info del producto */
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .nav-badge.show { opacity: 1; }
+
+        /* --- CARRITO SHEET --- */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 900;
+            opacity: 0; visibility: hidden; transition: 0.3s;
+            backdrop-filter: blur(3px);
         }
-        .producto-cabecera {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.2rem;
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        .cart-sheet {
+            position: fixed; bottom: -100%; left: 0; width: 100%;
+            background: white; z-index: 1000;
+            border-top-left-radius: 25px; border-top-right-radius: 25px;
+            padding: 20px; max-height: 80vh; display: flex; flex-direction: column;
+            transition: bottom 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        .producto-categoria {
-            background: #8B4513;
-            color: #fff;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
+        .cart-sheet.active { bottom: 0; }
+
+        .cart-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .cart-items { overflow-y: auto; flex-grow: 1; padding-bottom: 20px; }
+        
+        .cart-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: center; }
+        .cart-row img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .qty-box { display: flex; align-items: center; background: #f4f4f4; border-radius: 8px; padding: 2px 5px; }
+        .qty-box button { background: none; border: none; padding: 5px 8px; font-weight: bold; }
+
+        .btn-whatsapp {
+            width: 100%; padding: 16px; background: #25D366; color: white;
+            border: none; border-radius: 15px; font-size: 1rem; font-weight: bold;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-        .alergenos {
-            display: flex;
-            gap: 0.6rem;
-            justify-content: center; /* Centrado alergenos */
-        }
-        .alergenos i {
-            font-size: 1.1rem;
-            color: #FF6347;
-            cursor: help;
-            position: relative;
-            transition: color 0.3s;
-        }
-        .alergenos i:hover {
-            color: #E5533D;
-        }
-        .alergenos i:hover::after {
-            content: attr(title);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: #fff;
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            white-space: nowrap;
-            z-index: 10;
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-        }
-        .producto-info h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.6rem;
-            color: #333;
-        }
-        .descripcion {
-            color: #666;
-            margin-bottom: 1.2rem;
-            font-style: italic;
-            font-size: 1rem;
-        }
-        .ingredientes {
-            font-size: 0.95rem;
-            color: #999;
-            margin-bottom: 1.2rem;
-            background: #f8f4f0;
-            padding: 1rem;
-            border-radius: 6px;
-            border-left: 4px solid #8B4513;
-            text-align: left; /* Mantiene alineación izquierda para legibilidad */
-            flex-grow: 1;
-        }
-        .producto-pie {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 1rem;
-            gap: 10px;
-        }
-        .qty-input {
-            width: 60px;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            text-align: center;
-            font-size: 1rem;
-            background: #f8f4f0;
-            transition: border-color 0.3s;
-        }
-        .qty-input:focus {
-            outline: none;
-            border-color: #8B4513;
-        }
-        .btn-pedido {
-            background: #228B22;
-            color: #fff;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.3s;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-pedido:hover {
-            background: #32CD32;
-            transform: scale(1.05);
-        }
-        .btn-pedido.added {
-            background: #8B4513;
-        }
-        .btn-pedido.added:hover {
-            background: #A0522D;
-        }
-        /* Cart Modal - Centrado mejorado */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 4vw 4vh;
-        }
-        .cart-content {
-            background: #fff;
-            padding: 2.5rem;
-            border-radius: 15px;
-            max-width: 550px;
-            max-height: 85vh;
-            overflow-y: auto;
-            width: 90%;
-            max-width: 90vw;
-            box-sizing: border-box;
-            margin: 0 auto;
-            text-align: center; /* Centrado en modal */
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-        .cart-item span {
-            flex: 1;
-            min-width: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 1rem;
-            text-align: left;
-        }
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-total {
-            font-weight: 600;
-            margin: 1.2rem 0;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-        .btn-cart-pedido {
-            background: #8B4513;
-            color: #fff;
-            padding: 1.2rem;
-            border-radius: 35px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-            display: block;
-            text-align: center;
-            margin-top: 1.2rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .btn-cart-pedido:hover {
-            background: #A0522D;
-            transform: scale(1.02);
-        }
-        .btn-remove {
-            background: #FF6347;
-            color: #fff;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: background 0.3s;
-        }
-        .btn-remove:hover {
-            background: #E5533D;
-        }
-        /* Footer - Centrado mejorado */
-        footer {
-            background: #333;
-            color: #fff;
-            padding: 4rem 0 1.5rem;
-            text-align: center;
-        }
-        .footer-contenido {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 2.5rem;
-            justify-items: center; /* Centrado columnas */
-        }
-        .footer-columna {
-            text-align: center;
-            max-width: 250px;
-        }
-        .footer-columna h3 {
-            color: #8B4513;
-            margin-bottom: 1.2rem;
-        }
-        .footer-columna p,
-        .footer-columna a {
-            color: #ccc;
-            text-decoration: none;
-            line-height: 1.9;
-        }
-        .footer-columna a:hover {
-            color: #fff;
-        }
-        .redes-sociales {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.2rem;
-            justify-content: center;
-        }
-        .red-social {
-            display: block;
-            width: 45px;
-            height: 45px;
-            background: #8B4513;
-            color: #fff;
-            text-align: center;
-            line-height: 45px;
-            border-radius: 50%;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .red-social:hover {
-            background: #A0522D;
-            transform: scale(1.15);
-        }
-        .mapa-sitio {
-            list-style: none;
-            text-align: center;
-        }
-        .mapa-sitio li {
-            margin-bottom: 0.6rem;
-        }
-        .footer-derechos {
-            text-align: center;
-            padding-top: 2.5rem;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-        .cta-contacto {
-            text-align: center;
-            background: #f8f4f0;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-        }
-        /* WhatsApp Button */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 65px;
-            height: 65px;
-            background: #25D366;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            text-decoration: none;
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
-            transition: transform 0.3s;
-            z-index: 1000;
-        }
-        .whatsapp-button:hover {
-            transform: scale(1.15);
-        }
-        /* Modal Cookies - Centrado */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 4vw 4vh;
-        }
-        .modal-content {
-            background: #fff;
-            padding: 2.5rem;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            max-width: 90vw;
-            margin: 0 auto;
-        }
-        .modal-content button {
-            margin: 0 0.6rem;
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        #accept-cookies {
-            background: #8B4513;
-            color: #fff;
-        }
-        #reject-cookies {
-            background: #ccc;
-            color: #333;
-        }
-        /* Responsive - Mejoras para centrado en móviles */
-        @media (max-width: 768px) {
-            .header-content {
-                padding: 1rem 15px;
-                justify-content: space-between;
-            }
-            .logo-text h1 {
-                font-size: 1.6rem;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .main-navigation ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #fff;
-                flex-direction: column;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                text-align: center; /* Centrado menú móvil */
-            }
-            .main-navigation ul.toggled {
-                display: flex;
-            }
-            .main-navigation li {
-                margin: 0;
-                padding: 1.2rem;
-                border-bottom: 1px solid #eee;
-                width: 100%;
-            }
-            .hero-slider {
-                height: 400px;
-            }
-            .hero-content h2 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-            .hero-stats {
-                flex-direction: column;
-                gap: 1.5rem;
-                justify-content: center;
-            }
-            .catalogo-filtros {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.8rem;
-            }
-            .grid-productos {
-                grid-template-columns: 1fr;
-                justify-items: center;
-            }
-            .cart-modal, .modal {
-                padding: 5vw 5vh;
-            }
-            .cart-content, .modal-content {
-                padding: 2rem;
-                margin: 0 auto;
-                width: 95%;
-                max-height: 85vh;
-            }
-            .cart-item {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.6rem;
-                text-align: center;
-            }
-            .cart-item span {
-                white-space: normal;
-                text-align: center;
-            }
-            .btn-remove {
-                align-self: center;
-                margin-top: 0.3rem;
-            }
-            .cart-total {
-                font-size: 1.1rem;
-            }
-            .footer-contenido {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .cta-contacto {
-                padding: 1.5rem;
-            }
-            .producto-pie {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .qty-input {
-                width: 80px;
-            }
-        }
-        @media (max-width: 480px) {
-            .header-content {
-                padding: 0.8rem 10px;
-            }
-            .hero-content h2 {
-                font-size: 2rem;
-            }
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-            .container {
-                padding: 0 10px;
-            }
-            .producto-info {
-                padding: 1.5rem;
-            }
-            .cart-content,
-            .modal-content {
-                padding: 1.5rem;
-                width: 98%;
-            }
-        }
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .producto {
-            animation: fadeIn 0.8s ease-out;
+        
+        .toast {
+            position: fixed; top: 90px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: var(--dark); color: white; padding: 12px 25px; border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 1200; opacity: 0; transition: 0.4s;
+            pointer-events: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
         }
-        /* Fuentes con display swap */
-        @font-face {
-            font-family: 'Open Sans';
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Playfair Display';
-            font-display: swap;
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
     </style>
 </head>
-<body class="home page-template-default">
-    <!-- Header -->
-    <header class="site-header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="img/icono_vectorizado.svg" alt="Logo de El Zorro: Chef con sombrero ilustrado" class="logo">
-                <div class="logo-text">
-                    <h1>El Zorro</h1>
-                    <span>Repostería Profesional</span>
-                </div>
+<body>
+
+    <!-- HEADER FLOTANTE -->
+    <header class="app-header">
+        <div class="brand">
+            <img src="https://latanadelzorro.github.io/Pagina-web/img/icono_vectorizado.svg" alt="Logo">
+            <div class="brand-text">
+                <h1>El Zorro</h1>
+                <small>Montoro, Córdoba</small>
             </div>
-            <nav class="main-navigation" role="navigation" aria-label="Menú principal">
-                <ul class="menu">
-                    <li><a href="#hero" aria-label="Ir al inicio">Inicio</a></li>
-                    <li><a href="#about" aria-label="Sobre nosotros">Sobre Nosotros</a></li>
-                    <li><a href="#destacados" aria-label="Ver productos">Productos</a></li>
-                </ul>
-                <div class="cart-icon" id="cart-icon" aria-label="Ver carrito">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </div>
-                <button class="menu-toggle" aria-expanded="false" aria-label="Abrir menú móvil">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
         </div>
+        <button class="cart-btn-top" onclick="openCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge-dot" id="top-dot"></span>
+        </button>
     </header>
-    <main class="container">
-        <section id="hero">
-            <div class="hero-slider">
-                <div class="hero-slide active" style="background-image: url('img/tiramisu.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('img/mantecados.jpeg');"></div>
-                <div class="hero-slide" style="background-image: url('img/galletas gengibre.jpeg');"></div>
-                <div class="hero-slide" style="background-image: url('img/palmeras.avif');"></div>
-                <div class="hero-slide" style="background-image: url('img/roscosdeazucar.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('img/roscos-vino.jpeg');"></div>
-                <div class="hero-slide" style="background-image: url('img/pestiños.jpg');"></div>
+
+    <!-- HERO PRINCIPAL (Entrada impactante) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="location-tag">
+                <i class="fas fa-map-marker-alt" style="color: #D4AF37;"></i> &nbsp; Montoro
             </div>
-            <div class="hero-content">
-                <span class="hero-badge">Catálogo profesional 2025</span>
-                <h2>Dulces Momentos, Sabores Inolvidables</h2>
-                <p>Descubre nuestra selección de postres artesanales elaborados con ingredientes de temporada, procesos cuidados y presentaciones listas para tu negocio.</p>
-                <div class="hero-stats" aria-label="Datos destacados del catálogo">
-                    <div class="hero-stat">
-                        <span class="stat-number" id="recetas-count"></span>
-                        <span class="stat-label">recetas totales</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="stat-number">48 h</span>
-                        <span class="stat-label">Producción por encargo</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Recetas artesanales</span>
-                    </div>
-                </div>
-                <a href="#destacados" class="btn" aria-label="Ver catálogo completo">Ver catálogo completo</a>
-            </div>
-        </section>
-        <section id="about" aria-labelledby="about-title">
-            <h2 id="about-title">Sobre Nosotros</h2>
-            <p>En El Zorro Repostería Profesional, nos apasiona crear dulces artesanales con ingredientes naturales y recetas tradicionales. Desde 2025, hemos estado endulzando momentos con productos de alta calidad, perfectos para tu negocio o eventos especiales.</p>
-            <p>Nuestro equipo de expertos reposteros combina tradición e innovación para ofrecer sabores inolvidables. Comprometidos con la frescura y la sostenibilidad, utilizamos ingredientes locales siempre que sea posible.</p>
-            <img src="img/about-image.jpg" alt="Nuestro equipo de reposteros en acción" class="about-img" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Sobre+Nosotros'">
-        </section>
-        <section id="destacados" aria-labelledby="productos-title">
-            <h2 id="productos-title">Nuestros Productos</h2>
-            <div class="catalogo-filtros" role="tablist" aria-label="Categorías del catálogo">
-                <button class="filtro-pill is-active" type="button" data-categoria="todos" role="tab" aria-selected="true">Todos</button>
-                <button class="filtro-pill" type="button" data-categoria="tradicional" role="tab">Tradicional</button>
-                <button class="filtro-pill" type="button" data-categoria="navideno" role="tab">Navideño</button>
-                <button class="filtro-pill" type="button" data-categoria="semana-santa" role="tab">Semana Santa</button>
-            </div>
-           
-            <div class="grid-productos" role="tabpanel">
-                <div class="producto" data-categoria="tradicional">
-                    <div class="producto-imagen">
-                        <img src="img/roscos-vino.jpeg" alt="Roscos de vino esponjosos con toque de vino tinto" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Roscos+Vino'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
-                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
-                            </div>
-                        </div>
-                        <h3>Roscos de Vino</h3>
-                        <p class="descripcion">Deliciosos roscos esponjosos con un toque de vino tinto.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, vino tinto, aceite de girasol, levadura, canela, ajonjolí.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Roscos de Vino" aria-label="Añadir Roscos de Vino al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="tradicional">
-                    <div class="producto-imagen">
-                        <img src="img/tiramisu.jpg" alt="Tiramisú clásico italiano con mascarpone y café" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Tiramisú'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
-                                <i class="fas fa-cheese" title="Contiene lácteos" aria-label="Lácteos"></i>
-                                <i class="fas fa-coffee" title="Contiene cafeína" aria-label="Cafeína"></i>
-                            </div>
-                        </div>
-                        <h3>Tiramisú</h3>
-                        <p class="descripcion">Clásico postre italiano con capas de café y mascarpone.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Queso mascarpone, huevos, azúcar, café, bizcochos de soletilla, cacao en polvo, licor de café (opcional).
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Tiramisú" aria-label="Añadir Tiramisú al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="navideno">
-                    <div class="producto-imagen">
-                        <img src="img/mantecados.jpeg" alt="Mantecados suaves y aromáticos de canela" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Mantecados'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="navideno">Navideño</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
-                                <i class="fas fa-wine-bottle" title="Contiene sulfitos" aria-label="Sulfitos"></i>
-                            </div>
-                        </div>
-                        <h3>Mantecados</h3>
-                        <p class="descripcion">Clásicos mantecados de canela, suaves y aromáticos.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, manteca de cerdo, canela, ajonjolí, limón.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Mantecados" aria-label="Añadir Mantecados al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="navideno">
-                    <div class="producto-imagen">
-                        <img src="img/galletas gengibre.jpeg" alt="Galletas divertidas de jengibre con forma de muñeco" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Galletas+Jengibre'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="navideno">Navideño</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
-                                <i class="fas fa-seedling" title="Contiene frutos secos" aria-label="Frutos secos"></i>
-                            </div>
-                        </div>
-                        <h3>Galletas de Jengibre</h3>
-                        <p class="descripcion">Divertidas galletas con forma de muñeco de jengibre.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Harina de trigo, miel, mantequilla, azúcar moreno, huevo, jengibre en polvo, canela, clavo, bicarbonato, almendras.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Galletas de Jengibre" aria-label="Añadir Galletas de Jengibre al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="tradicional">
-                    <div class="producto-imagen">
-                        <img src="img/palmeras.avif" alt="Palmeras crujientes de hojaldre con azúcar" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Palmeras'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-cheese" title="Contiene lácteos" aria-label="Lácteos"></i>
-                            </div>
-                        </div>
-                        <h3>Palmeras</h3>
-                        <p class="descripcion">Crujientes palmeras de hojaldre con azúcar.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Masa de hojaldre, azúcar, mantequilla.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Palmeras" aria-label="Añadir Palmeras al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="tradicional">
-                    <div class="producto-imagen">
-                        <img src="img/roscosdeazucar.jpg" alt="Roscos de azúcar andaluces suaves y esponjosos" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Roscos+Azúcar'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="tradicional">Tradicional</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-egg" title="Contiene huevo" aria-label="Huevo"></i>
-                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
-                            </div>
-                        </div>
-                        <h3>Roscos de Azúcar</h3>
-                        <p class="descripcion">Especialidad andaluza, suaves y esponjosos.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Harina de trigo, azúcar, huevo, aceite de girasol, levadura, canela, ajonjolí.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Roscos de Azúcar" aria-label="Añadir Roscos de Azúcar al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto" data-categoria="tradicional,semana-santa">
-                    <div class="producto-imagen">
-                        <img src="img/pestiños.jpg" alt="Pestiños tradicionales andaluces de Semana Santa" loading="lazy" onerror="this.src='https://via.placeholder.com/300x280?text=Pestiños'">
-                    </div>
-                    <div class="producto-info">
-                        <div class="producto-cabecera">
-                            <span class="producto-categoria" data-categoria="semana-santa">Semana Santa</span>
-                            <div class="alergenos">
-                                <i class="fas fa-bread-slice" title="Contiene gluten" aria-label="Gluten"></i>
-                                <i class="fas fa-wine-bottle" title="Contiene vino" aria-label="Vino"></i>
-                                <i class="fas fa-seedling" title="Contiene sésamo" aria-label="Sésamo"></i>
-                            </div>
-                        </div>
-                        <h3>Pestiños</h3>
-                        <p class="descripcion">Dulce tradicional andaluz de Semana Santa.</p>
-                        <div class="ingredientes">
-                            <strong>Ingredientes:</strong> Harina de trigo, vino blanco, aceite de oliva, azúcar, canela, ajonjolí, cáscara de naranja.
-                        </div>
-                        <div class="producto-pie">
-                            <input type="number" class="qty-input" min="1" value="1">
-                            <button class="btn-pedido" data-producto="Pestiños" aria-label="Añadir Pestiños al carrito">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="cta-contacto">
-                <h3>¿Listo para endulzar tu negocio?</h3>
-                <p>Contáctanos directamente por WhatsApp para pedidos personalizados y consultas.</p>
-                <a href="https://wa.me/34624416475?text=Hola,%20me%20interesa%20el%20catálogo%20de%20El%20Zorro" class="btn" aria-label="Contactar por WhatsApp">Iniciar conversación</a>
-            </div>
-            <div class="footer-contenido">
-                <div class="footer-columna">
-                    <h3>El Zorro</h3>
-                    <p>Excelencia en repostería artesanal desde 2025.</p>
-                    <p>Nos comprometemos a elaborar cada producto con ingredientes naturales, sin aditivos innecesarios y con procesos artesanales que garantizan sabor, frescura y autenticidad. Tu satisfacción es nuestra prioridad.</p>
-                </div>
-                <div class="footer-columna">
-                    <h3>Contacto</h3>
-                    <p>latanadelzorro@gmail.com</p>
-                    <p>+34 624 41 64 75</p>
-                    <div class="redes-sociales">
-                        <a href="https://wa.me/34624416475" target="_blank" class="red-social" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://www.instagram.com/elzorropanaderias/" target="_blank" class="red-social" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-columna">
-                    <h3>Legal</h3>
-                    <ul class="mapa-sitio">
-                        <li><a href="legal.html#privacidad">Política de Privacidad</a></li>
-                        <li><a href="legal.html">Términos y Condiciones</a></li>
-                        <li><a href="#" id="open-preferences-modal" aria-label="Preferencias de Cookies">Preferencias de Cookies</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-derechos">
-                <p>© 2025 El Zorro Repostería. Todos los derechos reservados.</p>
-            </div>
+            <h2>Tradición que renace.</h2>
+            <p>Nuevo obrador artesanal. Recuperando las recetas de nuestras abuelas para ti.</p>
+            <a href="#catalogo" class="cta-hero">Ver la Carta</a>
         </div>
-    </footer>
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/34624416475?text=Hola,%20me%20interesa%20el%20catálogo%20de%20El%20Zorro" class="whatsapp-button" target="_blank" aria-label="Chatea con nosotros por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    <!-- Modal del Carrito -->
-    <div id="cart-modal" class="cart-modal">
-        <div class="cart-content">
-            <h3>Tu Carrito</h3>
-            <div id="cart-items"></div>
-            <p class="cart-total" id="cart-total">Total: <span id="cart-total-count">0</span> productos</p>
-            <a href="#" id="btn-cart-pedido" class="btn-cart-pedido">Pedir por WhatsApp</a>
-            <button id="close-cart" style="background: #ccc; color: #333; margin-top: 1.2rem; width: 100%; padding: 0.8rem; border: none; border-radius: 6px; cursor: pointer;">Cerrar</button>
+    </section>
+
+    <!-- BARRA DE INFORMACIÓN (Scroll horizontal) -->
+    <div class="info-bar">
+        <div class="info-item">
+            <i class="fas fa-motorcycle"></i>
+            <span>Reparto en Montoro</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-bread-slice"></i>
+            <span>100% Artesano</span>
+        </div>
+        <div class="info-item">
+            <i class="fab fa-whatsapp"></i>
+            <span>Pedidos Online</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-calendar-check"></i>
+            <span>Encargos Eventos</span>
         </div>
     </div>
-    <!-- Modal de Cookies -->
-    <div id="cookies-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
-        <div class="modal-content">
-            <h3 id="modal-title">Preferencias de Cookies</h3>
-            <p style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">Usamos cookies para mejorar tu experiencia. <button id="accept-cookies">Aceptar todas</button> <button id="reject-cookies">Rechazar</button></p>
+
+    <!-- HISTORIA (Contexto) -->
+    <section class="welcome-box">
+        <div class="welcome-content">
+            <h3>Nuevo Obrador 2025</h3>
+            <div class="divider"></div>
+            <br>
+            <p>Somos una panadería y pastelería joven en <strong>Montoro, Córdoba</strong>. Nuestro sueño es simple: volver a los ingredientes naturales y al horneado diario. Sin prisas, sin conservantes. Solo sabor.</p>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <div id="catalogo" style="padding-top: 20px;">
+        <div class="cat-header">
+            <h3>Nuestra Vitrina</h3>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="cat-scroll">
+            <button class="cat-chip active" onclick="filter('todos', this)">Todo</button>
+            <button class="cat-chip" onclick="filter('Tradicional', this)">Tradicional</button>
+            <button class="cat-chip" onclick="filter('Navideño', this)">Navidad</button>
+            <button class="cat-chip" onclick="filter('Semana Santa', this)">Semana Santa</button>
+        </div>
+
+        <!-- Grid -->
+        <div class="product-grid" id="grid">
+            <!-- JS -->
         </div>
     </div>
-    <!-- Scripts -->
+    
+    <!-- Footer Simple -->
+    <div style="text-align: center; padding: 40px 20px; font-size: 0.8rem; color: #999;">
+        <p>El Zorro Artesanos <br> Montoro, Córdoba</p>
+        <p style="margin-top: 5px;">&copy; 2025</p>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="window.scrollTo(0,0)">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="https://wa.me/34624416475" class="nav-item">
+            <i class="fab fa-whatsapp"></i>
+            <span>Hablar</span>
+        </a>
+        <div class="nav-item" onclick="openCart()">
+            <div class="nav-cart-cont">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="nav-badge" id="nav-badge">0</span>
+            </div>
+            <span>Mi Cesta</span>
+        </div>
+    </nav>
+
+    <!-- CARRITO -->
+    <div class="overlay" id="overlay" onclick="closeCart()"></div>
+    <div class="cart-sheet" id="cart-sheet">
+        <div class="cart-header">
+            <h3><i class="fas fa-receipt"></i> Tu Pedido</h3>
+            <button onclick="closeCart()" style="border:none; background:none; font-size:1.5rem;">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Items -->
+        </div>
+        <div style="margin-top:auto;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;">
+                <span>Total Artículos:</span>
+                <span id="total-items">0</span>
+            </div>
+            <button class="btn-whatsapp" onclick="sendOrder()">
+                Realizar Pedido <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle" style="color: #25D366;"></i>
+        <span>Añadido a la cesta</span>
+    </div>
+
     <script>
-        // Funciones del Carrito (actualizadas para cantidades)
-        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+        /* --- DATOS --- */
+        const productos = [
+            { id: 1, nombre: "Roscos de Vino", desc: "Receta montoreña con vino y ajonjolí.", cat: ["Tradicional", "Navideño"], img: "img/roscos-vino.jpeg" },
+            { id: 2, nombre: "Tiramisú Artesano", desc: "Capas de mascarpone y café recién hecho.", cat: ["Tradicional"], img: "img/tiramisu.jpg" },
+            { id: 3, nombre: "Mantecados", desc: "De canela y limón. Se deshacen en la boca.", cat: ["Navideño"], img: "img/mantecados.jpeg" },
+            { id: 4, nombre: "Galletas de Jengibre", desc: "Divertidas y crujientes, ideal para peques.", cat: ["Navideño"], img: "img/galletas gengibre.jpeg" },
+            { id: 5, nombre: "Palmeras Caramelizadas", desc: "Hojaldre de mantequilla crujiente.", cat: ["Tradicional"], img: "img/palmeras.avif" },
+            { id: 6, nombre: "Roscos de Azúcar", desc: "Fritos del día, tiernos por dentro.", cat: ["Tradicional"], img: "img/roscosdeazucar.jpg" },
+            { id: 7, nombre: "Pestiños de Miel", desc: "Clásico de Semana Santa en Córdoba.", cat: ["Semana Santa"], img: "img/pestiños.jpg" }
+        ];
 
-        function updateCartCount() {
-            const totalItems = Object.values(cart).reduce((a, b) => a + (b || 0), 0);
-            const countEl = document.getElementById('cart-count');
-            const countBadge = document.querySelector('.cart-count');
-            countEl.textContent = totalItems;
-            if (totalItems > 0) {
-                countBadge.classList.add('show');
-            } else {
-                countBadge.classList.remove('show');
+        let cart = JSON.parse(localStorage.getItem('zorro_montoro_cart')) || {};
+
+        /* --- INICIO --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGrid('todos');
+            updateUI();
+        });
+
+        /* --- RENDER --- */
+        function renderGrid(filtro) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            const items = filtro === 'todos' ? productos : productos.filter(p => p.cat.includes(filtro));
+
+            items.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'product-card';
+                div.innerHTML = `
+                    <div class="img-wrapper">
+                        <img src="${p.img}" loading="lazy" onerror="this.src='https://placehold.co/300?text=El+Zorro'">
+                        <div class="btn-add-mini" onclick="addToCart(${p.id}, this)">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="info-wrapper">
+                        <h4>${p.nombre}</h4>
+                        <p>${p.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        /* --- LOGICA CARRITO --- */
+        function addToCart(id, btn) {
+            const item = productos.find(p => p.id === id);
+            if(cart[id]) cart[id].qty++;
+            else cart[id] = { ...item, qty: 1 };
+            
+            // Efecto visual
+            btn.classList.add('active');
+            setTimeout(() => btn.classList.remove('active'), 300);
+            
+            showToast(`Añadido: ${item.nombre}`);
+            saveCart();
+            updateUI();
+        }
+
+        function updateQty(id, delta) {
+            if(cart[id]) {
+                cart[id].qty += delta;
+                if(cart[id].qty <= 0) delete cart[id];
             }
-            document.getElementById('cart-total-count').textContent = totalItems;
+            saveCart();
+            updateUI();
+            renderCartItems();
         }
 
-        function addToCart(producto, qty = 1) {
-            cart[producto] = (cart[producto] || 0) + qty;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            return true;
+        function saveCart() {
+            localStorage.setItem('zorro_montoro_cart', JSON.stringify(cart));
         }
 
-        function removeFromCart(producto) {
-            delete cart[producto];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
+        function updateUI() {
+            const total = Object.values(cart).reduce((acc, i) => acc + i.qty, 0);
+            
+            const badge = document.getElementById('nav-badge');
+            const dot = document.getElementById('top-dot');
+            document.getElementById('total-items').innerText = total;
+
+            if(total > 0) {
+                badge.classList.add('show');
+                dot.classList.add('show');
+                badge.innerText = total;
+            } else {
+                badge.classList.remove('show');
+                dot.classList.remove('show');
+            }
         }
 
-        function renderCart() {
-            const container = document.getElementById('cart-items');
-            const filteredCart = Object.entries(cart).filter(([p, q]) => q > 0);
-            if (filteredCart.length === 0) {
-                container.innerHTML = '<p>Tu carrito está vacío.</p>';
-                document.getElementById('btn-cart-pedido').style.display = 'none';
+        /* --- UI ACTIONS --- */
+        function openCart() {
+            renderCartItems();
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('cart-sheet').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCart() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('cart-sheet').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderCartItems() {
+            const div = document.getElementById('cart-items');
+            const items = Object.values(cart);
+            
+            if(items.length === 0) {
+                div.innerHTML = "<div style='text-align:center; margin-top:30px; opacity:0.5'>Tu cesta está vacía</div>";
                 return;
             }
-            document.getElementById('btn-cart-pedido').style.display = 'block';
-            container.innerHTML = filteredCart.map(([producto, qty]) => `
-                <div class="cart-item">
-                    <span>${qty}x ${producto}</span>
-                    <button class="btn-remove" onclick="removeFromCart('${producto.replace(/'/g, "\\'")}')">Eliminar</button>
+
+            div.innerHTML = items.map(i => `
+                <div class="cart-row">
+                    <img src="${i.img}">
+                    <div style="flex-grow:1">
+                        <div style="font-weight:bold; font-size:0.9rem">${i.nombre}</div>
+                    </div>
+                    <div class="qty-box">
+                        <button onclick="updateQty(${i.id}, -1)">-</button>
+                        <span style="font-size:0.9rem; width:20px; text-align:center;">${i.qty}</span>
+                        <button onclick="updateQty(${i.id}, 1)">+</button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function openCart() {
-            renderCart();
-            document.getElementById('cart-modal').style.display = 'flex';
+        function filter(cat, btn) {
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            renderGrid(cat);
         }
 
-        function closeCart() {
-            document.getElementById('cart-modal').style.display = 'none';
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.querySelector('span').innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
         }
 
-        function pedidoWhatsApp() {
-            const filteredCart = Object.entries(cart).filter(([p, q]) => q > 0);
-            if (filteredCart.length === 0) return;
-            const lista = filteredCart.map(([p, q]) => `${q}x ${p}`).join('%0A');
-            const message = `Hola,%20quiero%20pedir:%0A${lista}`;
-            window.open(`https://wa.me/34624416475?text=${message}`, '_blank');
+        function sendOrder() {
+            const items = Object.values(cart);
+            if(items.length === 0) return;
+            
+            let msg = "Hola El Zorro, soy vecino de Montoro (o alrededores) y quiero pedir:%0A%0A";
+            items.forEach(i => msg += `▪️ ${i.nombre} (x${i.qty})%0A`);
+            msg += `%0A📦 Total unidades: ${document.getElementById('total-items').innerText}`;
+            
+            window.open(`https://wa.me/34624416475?text=${msg}`, '_blank');
         }
 
-        // Nueva: Slider Hero
-        function initSlider() {
-            const slides = document.querySelectorAll('.hero-slide');
-            let current = 0;
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 5000);
-        }
-
-        // Contador dinámico de recetas
-        document.addEventListener('DOMContentLoaded', function() {
-            const todasLasRecetas = document.querySelectorAll('.grid-productos .producto');
-            const total = todasLasRecetas.length;
-            document.getElementById('recetas-count').textContent = total;
-
-            // Inicializar slider
-            initSlider();
-
-            // Inicializar carrito
-            updateCartCount();
-
-            // Botones añadir al carrito
-            document.querySelectorAll('.btn-pedido').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const producto = this.dataset.producto;
-                    const qtyInput = this.parentElement.querySelector('.qty-input');
-                    const qty = parseInt(qtyInput.value) || 1;
-                    if (addToCart(producto, qty)) {
-                        this.textContent = '¡Añadido!';
-                        this.classList.add('added');
-                        qtyInput.value = 1;
-                        setTimeout(() => {
-                            this.textContent = 'Añadir al carrito';
-                            this.classList.remove('added');
-                        }, 2000);
-                    }
-                });
-            });
-
-            // Icono carrito
-            document.getElementById('cart-icon').addEventListener('click', openCart);
-
-            // Cerrar carrito
-            document.getElementById('close-cart').addEventListener('click', closeCart);
-            document.getElementById('btn-cart-pedido').addEventListener('click', function(e) {
-                e.preventDefault();
-                pedidoWhatsApp();
-            });
-
-            // Filtros
-            const filtros = document.querySelectorAll('.filtro-pill');
-            const productos = document.querySelectorAll('.producto');
-            filtros.forEach(filtro => {
-                filtro.addEventListener('click', () => {
-                    filtros.forEach(f => f.classList.remove('is-active'));
-                    filtro.classList.add('is-active');
-                    const categoria = filtro.dataset.categoria;
-                    productos.forEach(producto => {
-                        const cats = producto.dataset.categoria.split(',');
-                        if (categoria === 'todos' || cats.includes(categoria)) {
-                            producto.style.display = 'block';
-                            producto.style.opacity = '0';
-                            setTimeout(() => { producto.style.opacity = '1'; }, 100);
-                        } else {
-                            producto.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Modal cookies
-            const modal = document.getElementById('cookies-modal');
-            document.getElementById('open-preferences-modal').addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.style.display = 'flex';
-            });
-            document.getElementById('accept-cookies').addEventListener('click', function() {
-                localStorage.setItem('cookies-accepted', 'true');
-                modal.style.display = 'none';
-            });
-            document.getElementById('reject-cookies').addEventListener('click', function() {
-                localStorage.setItem('cookies-rejected', 'true');
-                modal.style.display = 'none';
-            });
-
-            // Menú móvil
-            const menuToggle = document.querySelector('.menu-toggle');
-            const menu = document.querySelector('.main-navigation ul');
-            menuToggle.addEventListener('click', () => {
-                menu.classList.toggle('toggled');
-                const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-                menuToggle.setAttribute('aria-expanded', !expanded);
-            });
-
-            // Smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Cierre del modal al clic fuera
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-                if (e.target === document.getElementById('cart-modal')) {
-                    closeCart();
-                }
-            });
-        });
     </script>
 </body>
 </html>
