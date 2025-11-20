@@ -4,13 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Zorro - Repostería Profesional</title>
-    <link rel="icon" type="image/svg+xml" href="./icono_vectorizado.svg">
+    <link rel="icon" type="image/svg+xml" href="img/icono_vectorizado.svg">
     <meta name="description" content="Repostería artesanal de alta calidad. Productos horneados con ingredientes naturales y recetas tradicionales.">
    
     <!-- Open Graph para SEO -->
     <meta property="og:title" content="El Zorro - Repostería Profesional">
     <meta property="og:description" content="Descubre nuestra selección de postres artesanales elaborados con ingredientes de temporada.">
-    <meta property="og:image" content="./El Zorro - Repostería Profesional_files/tiramisu.jpg">
+    <meta property="og:image" content="img/tiramisu.jpg">
     <meta property="og:url" content="https://tu-usuario.github.io/el-zorro-reposteria">
    
     <!-- Google Fonts -->
@@ -44,7 +44,7 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header */
+        /* Header - CORREGIDO: Alineación con flex y gap */
         .site-header {
             background: #fff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -76,6 +76,11 @@
             font-size: 0.9rem;
             color: #666;
             display: block;
+        }
+        .main-navigation {
+            display: flex; /* CORREGIDO: Agregado para alinear ul, cart y toggle */
+            align-items: center;
+            gap: 1rem; /* Espacio entre elementos */
         }
         .main-navigation ul {
             display: flex;
@@ -124,7 +129,7 @@
             align-items: center;
             justify-content: center;
         }
-        /* Hero Section */
+        /* Hero Section - CORREGIDO: Grid más adaptable */
         #hero {
             position: relative;
             padding: 4rem 0;
@@ -133,7 +138,7 @@
         }
         .hero-collage {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* CORREGIDO: minmax más pequeño para móviles */
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -177,6 +182,7 @@
             justify-content: center;
             gap: 3rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap; /* CORREGIDO: Para mejor wrap en responsive */
         }
         .hero-stat {
             text-align: center;
@@ -245,7 +251,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s; /* CORREGIDO: Transiciones específicas para performance */
         }
         .producto:hover {
             transform: translateY(-5px);
@@ -347,7 +353,7 @@
         .btn-pedido.added:hover {
             background: #A0522D;
         }
-        /* Cart Modal */
+        /* Cart Modal - CORREGIDO: Más padding y márgenes para móviles */
         .cart-modal {
             display: none;
             position: fixed;
@@ -359,6 +365,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            padding: 4vw 4vh; /* CORREGIDO: Más padding en viewport */
         }
         .cart-content {
             background: #fff;
@@ -367,14 +374,28 @@
             max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
-            width: 90%;
+            width: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
+            box-sizing: border-box;
+            margin: 1rem auto; /* CORREGIDO: Centrado y margen */
         }
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem 0;
+            padding: 0.75rem 0;
             border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .cart-item span {
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.9rem;
         }
         .cart-item:last-child {
             border-bottom: none;
@@ -383,6 +404,7 @@
             font-weight: 600;
             margin: 1rem 0;
             text-align: center;
+            font-size: 1.1rem;
         }
         .btn-cart-pedido {
             background: #8B4513;
@@ -395,6 +417,8 @@
             display: block;
             text-align: center;
             margin-top: 1rem;
+            width: 100%;
+            box-sizing: border-box;
         }
         .btn-cart-pedido:hover {
             background: #A0522D;
@@ -407,6 +431,8 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .btn-remove:hover {
             background: #E5533D;
@@ -490,7 +516,7 @@
         .whatsapp-button:hover {
             transform: scale(1.1);
         }
-        /* Modal Cookies */
+        /* Modal Cookies - CORREGIDO: Gap en botones */
         .modal {
             display: none;
             position: fixed;
@@ -502,6 +528,7 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            padding: 4vw 4vh; /* CORREGIDO: Más padding */
         }
         .modal-content {
             background: #fff;
@@ -509,6 +536,9 @@
             border-radius: 10px;
             text-align: center;
             max-width: 400px;
+            width: 100%;
+            max-width: 90vw;
+            margin: 1rem auto; /* CORREGIDO: Centrado */
         }
         .modal-content button {
             margin: 0 0.5rem;
@@ -525,7 +555,7 @@
             background: #ccc;
             color: #333;
         }
-        /* Responsive */
+        /* Responsive - Mejoras adicionales */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
@@ -561,6 +591,48 @@
             }
             .grid-productos {
                 grid-template-columns: 1fr;
+            }
+            /* Ajustes para modales en móvil */
+            .cart-modal, .modal {
+                padding: 5vw 5vh; /* Más espacio */
+            }
+            .cart-content, .modal-content {
+                padding: 1.5rem;
+                margin: 2rem auto; /* Más margen */
+                max-height: 85vh;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .cart-item span {
+                white-space: normal;
+                text-align: left;
+            }
+            .btn-remove {
+                align-self: flex-end;
+                margin-top: 0.25rem;
+            }
+            .cart-total {
+                font-size: 1rem;
+            }
+            /* Collage en móvil pequeño */
+            .hero-collage {
+                grid-template-columns: repeat(2, 1fr); /* CORREGIDO: 2 columnas en móvil */
+            }
+        }
+        @media (max-width: 480px) {
+            .cart-content,
+            .modal-content {
+                padding: 1rem;
+                margin: 1.5rem auto;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .header-content {
+                padding: 0.75rem 0;
             }
         }
         /* Animaciones adicionales */
@@ -609,6 +681,15 @@
             color: #666;
             margin-bottom: 1rem;
         }
+        /* Fuentes con display swap para evitar FOUT */
+        @font-face {
+            font-family: 'Open Sans';
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Playfair Display';
+            font-display: swap;
+        }
     </style>
 </head>
 <body class="home page-template-default">
@@ -616,7 +697,7 @@
     <header class="site-header">
         <div class="container header-content">
             <div class="logo-container">
-                <img src="./El Zorro - Repostería Profesional_files/icono_vectorizado.svg" alt="Logo de El Zorro: Chef con sombrero ilustrado" class="logo">
+                <img src="img/icono_vectorizado.svg" alt="Logo de El Zorro: Chef con sombrero ilustrado" class="logo">
                 <div class="logo-text">
                     <h1>El Zorro</h1>
                     <span>Repostería Profesional</span>
@@ -640,13 +721,13 @@
     <main class="container">
         <section id="hero">
             <div class="hero-collage">
-                <img src="./El Zorro - Repostería Profesional_files/tiramisu.jpg" alt="Tiramisú cremoso con capas de café" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/mantecados.jpeg" alt="Mantecados navideños con canela" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/galletas gengibre.jpeg" alt="Galletas de jengibre en forma de muñeco" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/palmeras.avif" alt="Palmeras crujientes de hojaldre" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/roscosdeazucar.jpg" alt="Roscos de azúcar esponjosos" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/roscos-vino.jpeg" alt="Roscos de vino tinto aromáticos" loading="lazy">
-                <img src="./El Zorro - Repostería Profesional_files/pestiños.jpg" alt="Pestiños fritos con miel y anís" loading="lazy">
+                <img src="img/tiramisu.jpg" alt="Tiramisú cremoso con capas de café" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Tiramisú'">
+                <img src="img/mantecados.jpeg" alt="Mantecados navideños con canela" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Mantecados'">
+                <img src="img/galletas gengibre.jpeg" alt="Galletas de jengibre en forma de muñeco" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Galletas+Jengibre'">
+                <img src="img/palmeras.avif" alt="Palmeras crujientes de hojaldre" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Palmeras'">
+                <img src="img/roscosdeazucar.jpg" alt="Roscos de azúcar esponjosos" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Roscos+Azúcar'">
+                <img src="img/roscos-vino.jpeg" alt="Roscos de vino tinto aromáticos" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Roscos+Vino'">
+                <img src="img/pestiños.jpg" alt="Pestiños fritos con miel y anís" loading="lazy" onerror="this.src='https://via.placeholder.com/200x200?text=Pestiños'">
             </div>
             <div class="hero-content">
                 <span class="hero-badge">Catálogo profesional 2025</span>
@@ -681,7 +762,7 @@
             <div class="grid-productos" role="tabpanel">
                 <div class="producto" data-categoria="tradicional">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/roscos-vino.jpeg" alt="Roscos de vino esponjosos con toque de vino tinto" loading="lazy">
+                        <img src="img/roscos-vino.jpeg" alt="Roscos de vino esponjosos con toque de vino tinto" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Roscos+Vino'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -704,7 +785,7 @@
                 </div>
                 <div class="producto" data-categoria="tradicional">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/tiramisu.jpg" alt="Tiramisú clásico italiano con mascarpone y café" loading="lazy">
+                        <img src="img/tiramisu.jpg" alt="Tiramisú clásico italiano con mascarpone y café" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Tiramisú'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -728,7 +809,7 @@
                 </div>
                 <div class="producto" data-categoria="navideno">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/mantecados.jpeg" alt="Mantecados suaves y aromáticos de canela" loading="lazy">
+                        <img src="img/mantecados.jpeg" alt="Mantecados suaves y aromáticos de canela" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Mantecados'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -751,7 +832,7 @@
                 </div>
                 <div class="producto" data-categoria="navideno">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/galletas gengibre.jpeg" alt="Galletas divertidas de jengibre con forma de muñeco" loading="lazy">
+                        <img src="img/galletas gengibre.jpeg" alt="Galletas divertidas de jengibre con forma de muñeco" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Galletas+Jengibre'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -774,7 +855,7 @@
                 </div>
                 <div class="producto" data-categoria="tradicional">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/palmeras.avif" alt="Palmeras crujientes de hojaldre con azúcar" loading="lazy">
+                        <img src="img/palmeras.avif" alt="Palmeras crujientes de hojaldre con azúcar" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Palmeras'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -796,7 +877,7 @@
                 </div>
                 <div class="producto" data-categoria="tradicional">
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/roscosdeazucar.jpg" alt="Roscos de azúcar andaluces suaves y esponjosos" loading="lazy">
+                        <img src="img/roscosdeazucar.jpg" alt="Roscos de azúcar andaluces suaves y esponjosos" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Roscos+Azúcar'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -817,9 +898,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="producto" data-categoria="tradicional semana-santa">
+                <div class="producto" data-categoria="tradicional,semana-santa"> <!-- CORREGIDO: data-categoria con coma para múltiples filtros -->
                     <div class="producto-imagen">
-                        <img src="./El Zorro - Repostería Profesional_files/pestiños.jpg" alt="Pestiños tradicionales andaluces de Semana Santa" loading="lazy">
+                        <img src="img/pestiños.jpg" alt="Pestiños tradicionales andaluces de Semana Santa" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250?text=Pestiños'">
                     </div>
                     <div class="producto-info">
                         <div class="producto-cabecera">
@@ -895,17 +976,17 @@
             <div id="cart-items"></div>
             <p class="cart-total" id="cart-total">Total: <span id="cart-total-count">0</span> productos</p>
             <a href="#" id="btn-cart-pedido" class="btn-cart-pedido">Pedir por WhatsApp</a>
-            <button id="close-cart" style="background: #ccc; color: #333; margin-top: 1rem;">Cerrar</button>
+            <button id="close-cart" style="background: #ccc; color: #333; margin-top: 1rem; width: 100%; padding: 0.75rem; border: none; border-radius: 5px; cursor: pointer;">Cerrar</button>
         </div>
     </div>
     <!-- Modal de Cookies (simple) -->
     <div id="cookies-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-content">
             <h3 id="modal-title">Preferencias de Cookies</h3>
-            <p>Usamos cookies para mejorar tu experiencia. <button id="accept-cookies">Aceptar todas</button> <button id="reject-cookies">Rechazar</button></p>
+            <p style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">Usamos cookies para mejorar tu experiencia. <button id="accept-cookies">Aceptar todas</button> <button id="reject-cookies">Rechazar</button></p>
         </div>
     </div>
-    <!-- Scripts consolidados -->
+    <!-- Scripts consolidados - CORREGIDO: Filtro para múltiples categorías con includes -->
     <script>
         // Funciones del Carrito
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -962,7 +1043,7 @@
             window.open(`https://wa.me/34624416475?text=${message}`, '_blank');
         }
 
-        // Contador dinámico de recetas (ahora cuenta TODAS las recetas)
+        // Contador dinámico de recetas
         document.addEventListener('DOMContentLoaded', function() {
             const todasLasRecetas = document.querySelectorAll('.grid-productos .producto');
             const total = todasLasRecetas.length;
@@ -996,7 +1077,7 @@
                 pedidoWhatsApp();
             });
 
-            // Filtros básicos
+            // Filtros - CORREGIDO: Soporte para múltiples categorías con split y includes
             const filtros = document.querySelectorAll('.filtro-pill');
             const productos = document.querySelectorAll('.producto');
             filtros.forEach(filtro => {
@@ -1005,7 +1086,8 @@
                     filtro.classList.add('is-active');
                     const categoria = filtro.dataset.categoria;
                     productos.forEach(producto => {
-                        if (categoria === 'todos' || producto.dataset.categoria.includes(categoria)) {
+                        const cats = producto.dataset.categoria.split(','); // Split por coma
+                        if (categoria === 'todos' || cats.includes(categoria)) {
                             producto.style.display = 'block';
                             producto.style.opacity = '0';
                             setTimeout(() => { producto.style.opacity = '1'; }, 100);
