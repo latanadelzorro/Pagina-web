@@ -98,7 +98,37 @@ function openProduct(id) {
 
     document.getElementById('pm-img').src = p.img;
     document.getElementById('pm-title').innerText = p.nombre;
-    document.getElementById('pm-desc').innerText = p.desc + " Elaborados a mano cada mañana para asegurar la máxima frescura.";
+
+    let descHTML = p.desc + " Elaborados a mano cada mañana para asegurar la máxima frescura.";
+    if (p.precio) {
+        let packsHTML = '';
+        if (p.packs) {
+            const packsArr = p.packs.split(' | ');
+            packsHTML = `<div class="pack-title"><i class="fas fa-box-open" style="color:var(--primary);"></i> Packs Ahorro</div>
+                         <div class="pack-list">
+                            ${packsArr.map(pack => {
+                // Separar nombre y precio "Pack 6 (7,08€)"
+                const match = pack.match(/(.*)\s\((.*)€\)/);
+                if (match) {
+                    const packName = match[1];
+                    const packPrice = parseFloat(match[2].replace(',', '.'));
+                    return `<div class="pack-item" onclick="addToCart(${p.id}, this, '${packName}', ${packPrice})" style="cursor:pointer;">
+                                                <span class="pack-name">${packName}</span>
+                                                <span class="pack-price">${match[2]}€</span>
+                                                <i class="fas fa-plus-circle" style="color:var(--primary); margin-left:10px;"></i>
+                                            </div>`;
+                }
+                return `<div class="pack-item"><span class="pack-name">${pack}</span></div>`;
+            }).join('')}
+                         </div>`;
+        }
+
+        descHTML += `<div class="price-box-modal">
+            <div class="price-main">${p.precio.toFixed(2).replace('.', ',')}€ <span>/ unidad</span></div>
+            ${packsHTML}
+        </div>`;
+    }
+    document.getElementById('pm-desc').innerHTML = descHTML;
     document.getElementById('pm-cat').innerText = p.cat.join(" | ");
 
     // Alérgenos
@@ -249,6 +279,7 @@ function renderGrid(filtro) {
                     </div>
                     <div class="info-wrapper" onclick="openProduct(${p.id})" style="cursor:pointer;">
                         <h4>${p.nombre}</h4>
+                        ${p.precio ? `<div class="price-tag-grid">${p.precio.toFixed(2).replace('.', ',')}€ <small>/ ud</small></div>` : ''}
                         <p>${p.desc}</p>
                         <div class="cat-tag-small">${p.cat[0]}</div>
                     </div>
@@ -257,16 +288,58 @@ function renderGrid(filtro) {
     });
 }
 
-function addToCart(id, btn) {
+function addToCart(id, btn, variantName = null, variantPrice = null) {
     const item = productos.find(p => p.id === id);
-    if (cart[id]) cart[id].qty++; else cart[id] = { ...item, qty: 1 };
-    if (btn) { btn.classList.add('active'); setTimeout(() => btn.classList.remove('active'), 300); }
-    showToast(`Añadido: ${item.nombre}`);
+    if (!item) return;
+
+    // Generar clave única: ID o ID_VARIANT
+    let key = item.id.toString();
+    let finalName = item.nombre;
+    let finalPrice = item.precio || 0; // Fallback si no tiene precio definido
+    let finalImg = item.img;
+
+    if (variantName) {
+        key = `${item.id}_${variantName.replace(/\s+/g, '')}`;
+        finalName = `${item.nombre} (${variantName})`;
+        finalPrice = variantPrice;
+    }
+
+    if (cart[key]) {
+        cart[key].qty++;
+    } else {
+        cart[key] = {
+            id: item.id,
+            key: key, // Guardamos la key para referencias futuras
+            nombre: finalName,
+            img: finalImg,
+            cat: item.cat,
+            qty: 1,
+            price: finalPrice
+        };
+    }
+
+    if (btn) {
+        // Animación simple del botón
+        const originalTransform = btn.style.transform;
+        btn.style.transform = "scale(0.95)";
+        setTimeout(() => btn.style.transform = originalTransform, 150);
+
+        // Si es el botón flotante mini
+        if (btn.classList.contains('btn-add-mini')) {
+            btn.classList.add('active');
+            setTimeout(() => btn.classList.remove('active'), 300);
+        }
+    }
+
+    showToast(`Añadido: ${finalName}`);
     saveCart(); updateUI();
 }
 
-function updateQty(id, delta) {
-    if (cart[id]) { cart[id].qty += delta; if (cart[id].qty <= 0) delete cart[id]; }
+function updateQty(key, delta) {
+    if (cart[key]) {
+        cart[key].qty += delta;
+        if (cart[key].qty <= 0) delete cart[key];
+    }
     saveCart(); updateUI(); renderCartItems();
 }
 
@@ -293,12 +366,12 @@ function renderCartItems() {
                     <img src="${i.img}" alt="${i.nombre}">
                     <div style="flex-grow:1">
                         <div style="font-weight:bold; font-size:0.95rem; color:var(--dark);">${i.nombre}</div>
-                        <div style="font-size:0.8rem; color:var(--gray);">${i.cat[0]}</div>
+                        <div style="font-size:0.8rem; color:var(--gray);">${i.cat ? i.cat[0] : ''} ${i.price ? `| ${i.price.toFixed(2).replace('.', ',')}€` : ''}</div>
                     </div>
                     <div class="qty-box">
-                        <button onclick="updateQty(${i.id}, -1)">-</button>
+                        <button onclick="updateQty('${i.key || i.id}', -1)">-</button>
                         <span style="font-size:0.9rem; width:25px; text-align:center;">${i.qty}</span>
-                        <button onclick="updateQty(${i.id}, 1)">+</button>
+                        <button onclick="updateQty('${i.key || i.id}', 1)">+</button>
                     </div>
                 </div>
             `).join('');

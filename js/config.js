@@ -27,7 +27,9 @@ var productos = [
         desc: "Receta montoreña con vino tinto y ajonjolí.",
         cat: ["Tradicional", "Navideño"],
         img: "img/roscos-vino.jpeg",
-        alergenos: ["Gluten (Trigo)", "Sulfitos (Vino)", "Frutos de Cáscara", "Sésamo"]
+        alergenos: ["Gluten (Trigo)", "Sulfitos (Vino)", "Frutos de Cáscara", "Sésamo"],
+        precio: 0.45,
+        packs: "Pack 6 (2,70€) | Pack 12 (5,40€)"
     },
     {
         id: 2,
@@ -39,27 +41,33 @@ var productos = [
     },
     {
         id: 3,
-        nombre: "Mantecados Clásicos",
+        nombre: "Mantecados de canela y ajonjolí",
         desc: "De canela y limón. Textura suave.",
         cat: ["Navideño"],
         img: "img/mantecados.jpeg",
-        alergenos: ["Gluten (Trigo)", "Frutos de Cáscara (Almendra)", "Lácteos"]
+        alergenos: ["Gluten (Trigo)", "Frutos de Cáscara (Almendra)", "Lácteos"],
+        precio: 0.95,
+        packs: "Pack 6 (5,70€) | Pack 10 (9,50€) | Pack 12 (11,40€)"
     },
     {
         id: 4,
-        nombre: "Galletas Jengibre",
+        nombre: "Galletas de jengibre",
         desc: "Divertidas y crujientes con miel.",
         cat: ["Navideño"],
         img: "img/galletas gengibre.jpeg",
-        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla)", "Sulfitos"]
+        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla)", "Sulfitos"],
+        precio: 0.80,
+        packs: "Pack 6 (4,80€) | Pack 10 (8,00€) | Pack 12 (9,60€)"
     },
     {
         id: 5,
-        nombre: "Palmeras Hojaldre",
+        nombre: "Palmeras de hojaldre",
         desc: "Mantequilla pura y caramelizado.",
         cat: ["Tradicional"],
         img: "img/palmeras.avif",
-        alergenos: ["Gluten (Trigo)", "Lácteos (Mantequilla)"]
+        alergenos: ["Gluten (Trigo)", "Lácteos (Mantequilla)"],
+        precio: 0.75,
+        packs: "Pack 6 (4,50€) | Pack 10 (7,50€) | Pack 12 (9,00€)"
     },
     {
         id: 6,
@@ -87,11 +95,13 @@ var productos = [
     },
     {
         id: 9,
-        nombre: "Cookies con Chips",
+        nombre: "Galletas con chips de chocolate",
         desc: "Crujientes por fuera y tiernas por dentro, con generosos chips de chocolate.",
         cat: ["Tradicional"],
         img: "img/cookies.png",
-        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla y Chocolate)", "Soja (Lecitina)"]
+        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla y Chocolate)", "Soja (Lecitina)"],
+        precio: 1.18,
+        packs: "Pack 6 (7,08€) | Pack 10 (11,80€) | Pack 12 (14,16€)"
     },
 ];
 
