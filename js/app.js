@@ -275,7 +275,7 @@ function renderGrid(filtro) {
                     </button>
                     <div class="img-wrapper" onclick="openProduct(${p.id})">
                         <img src="${p.img}" loading="lazy" alt="${p.nombre}" onerror="${fallback}">
-                        <div class="btn-add-mini" onclick="event.stopPropagation(); addToCart(${p.id}, this)"><i class="fas fa-plus"></i></div>
+                        <div class="btn-add-mini" onclick="handleGridAdd(${p.id}, this)"><i class="fas fa-plus"></i></div>
                     </div>
                     <div class="info-wrapper" onclick="openProduct(${p.id})" style="cursor:pointer;">
                         <h4>${p.nombre}</h4>
@@ -286,6 +286,16 @@ function renderGrid(filtro) {
                 `;
         grid.appendChild(div);
     });
+}
+
+function handleGridAdd(id, btn) {
+    event.stopPropagation();
+    const p = productos.find(x => x.id === id);
+    if (p && p.packs) {
+        openProduct(id);
+    } else {
+        addToCart(id, btn);
+    }
 }
 
 function addToCart(id, btn, variantName = null, variantPrice = null) {
