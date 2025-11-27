@@ -100,8 +100,8 @@ var productos = [
         cat: ["Tradicional"],
         img: "img/cookies.png",
         alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla y Chocolate)", "Soja (Lecitina)"],
-        precio: 1.18,
-        packs: "Pack 6 (7,08€) | Pack 10 (11,80€) | Pack 12 (14,16€)"
+        precio: 1.20,
+        packs: "Pack 6 (7,20€) | Pack 10 (12,00€) | Pack 12 (14,40€)"
     },
 ];
 
