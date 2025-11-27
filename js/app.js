@@ -393,9 +393,23 @@ function showToast(msg) { const t = document.getElementById('toast'); t.querySel
 function sendOrder() {
     const items = Object.values(cart);
     if (items.length === 0) return;
+
     let msg = "👋 Hola El Zorro! Me gustaría hacer este pedido:%0A%0A";
-    items.forEach(i => msg += `▪️ *${i.nombre}* (x${i.qty})%0A`);
-    msg += `%0A📦 *Total unidades:* ${document.getElementById('total-items').innerText}`;
+    let totalPrice = 0;
+
+    items.forEach(i => {
+        const itemTotal = (i.price || 0) * i.qty;
+        totalPrice += itemTotal;
+        msg += `▪️ *${i.nombre}* (x${i.qty})%0A`;
+        if (i.price) {
+            msg += `   ${i.price.toFixed(2).replace('.', ',')}€/ud = ${itemTotal.toFixed(2).replace('.', ',')}€%0A`;
+        }
+        msg += `%0A`;
+    });
+
+    msg += `📦 *Total unidades:* ${document.getElementById('total-items').innerText}%0A`;
+    msg += `💰 *TOTAL A PAGAR:* ${totalPrice.toFixed(2).replace('.', ',')}€`;
+
     if (storedCode && storedCode !== 'CASI') {
         if (CONFIG.promoTexts[storedCode]) {
             const { title, sub } = CONFIG.promoTexts[storedCode];
