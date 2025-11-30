@@ -56,8 +56,8 @@ var productos = [
         cat: ["Navideño"],
         img: "img/galletas gengibre.jpeg",
         alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos (Mantequilla)", "Sulfitos"],
-        precio: 0.80,
-        packs: "Pack 6 (4,80€) | Pack 10 (8,00€) | Pack 12 (9,60€)"
+        precio: 0.50,
+        packs: "Pack 6 (3,00€) | Pack 12 (5,50€)"
     },
     {
         id: 5,
@@ -66,8 +66,8 @@ var productos = [
         cat: ["Tradicional"],
         img: "img/palmeras.avif",
         alergenos: ["Gluten (Trigo)", "Lácteos (Mantequilla)"],
-        precio: 0.75,
-        packs: "Pack 6 (4,50€) | Pack 10 (7,50€) | Pack 12 (9,00€)"
+        precio: 0.60,
+        packs: "Pack 6 (3,50€) | Pack 12 (6,00€)"
     },
     {
         id: 6,
@@ -76,14 +76,6 @@ var productos = [
         cat: ["Tradicional"],
         img: "img/roscosdeazucar.jpg",
         alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos"]
-    },
-    {
-        id: 7,
-        nombre: "Hojaldrinas",
-        desc: "Deliciosas capas de hojaldre con un toque de naranja y vino.",
-        cat: ["Navideño", "Tradicional"],
-        img: "img/hojaldrinas.jpeg",
-        alergenos: ["Gluten (Trigo)", "Lácteos (Mantequilla)", "Sulfitos (Vino)"]
     },
     {
         id: 8,
