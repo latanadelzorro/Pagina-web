@@ -270,6 +270,20 @@ function renderGrid(filtro) {
         div.className = 'product-card';
         const isFav = favorites.includes(p.id);
         const fallback = "this.src='https://placehold.co/300?text=El+Zorro'";
+
+        // Mostrar precio: unitario o primer pack si no tiene unitario
+        let priceDisplay = '';
+        if (p.precio) {
+            priceDisplay = `<div class="price-tag-grid">${p.precio.toFixed(2).replace('.', ',')}€ <small>/ ud</small></div>`;
+        } else if (p.packs) {
+            // Extraer el precio del primer pack
+            const firstPack = p.packs.split(' | ')[0];
+            const match = firstPack.match(/Pack (\d+) \((.*€)\)/);
+            if (match) {
+                priceDisplay = `<div class="price-tag-grid">${match[2]} <small>/ ${match[1]} uds</small></div>`;
+            }
+        }
+
         div.innerHTML = `
                     <button class="btn-fav ${isFav ? 'active' : ''}" onclick="toggleFav(${p.id}, event)">
                         <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
@@ -280,7 +294,7 @@ function renderGrid(filtro) {
                     </div>
                     <div class="info-wrapper" onclick="openProduct(${p.id})" style="cursor:pointer;">
                         <h4>${p.nombre}</h4>
-                        ${p.precio ? `<div class="price-tag-grid">${p.precio.toFixed(2).replace('.', ',')}€ <small>/ ud</small></div>` : ''}
+                        ${priceDisplay}
                         <p>${p.desc}</p>
                         <div class="cat-tag-small">${p.cat[0]}</div>
                     </div>
