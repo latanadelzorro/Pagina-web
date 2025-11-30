@@ -22,16 +22,6 @@ var CONFIG = {
 // Añade, borra o edita productos aquí.
 var productos = [
     {
-        id: 1,
-        nombre: "Roscos de Vino",
-        desc: "Receta montoreña con vino tinto y ajonjolí.",
-        cat: ["Tradicional", "Navideño"],
-        img: "img/roscos-vino.jpeg",
-        alergenos: ["Gluten (Trigo)", "Sulfitos (Vino)", "Frutos de Cáscara", "Sésamo"],
-        precio: 0.45,
-        packs: "Pack 6 (2,70€) | Pack 12 (5,40€)"
-    },
-    {
         id: 2,
         nombre: "Tiramisú Artesano",
         desc: "Capas de mascarpone, bizcocho y café.",
@@ -70,20 +60,13 @@ var productos = [
         packs: "Pack 6 (3,50€) | Pack 12 (6,00€)"
     },
     {
-        id: 6,
-        nombre: "Roscos de Azúcar",
-        desc: "Fritos del día, tiernos y rebozados.",
-        cat: ["Tradicional"],
-        img: "img/roscosdeazucar.jpg",
-        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos"]
-    },
-    {
         id: 8,
         nombre: "Magdalenas Caseras",
         desc: "Esponjosas, con alto copete, aceite de oliva y ralladura de limón.",
         cat: ["Tradicional"],
         img: "img/macdalenas.jpeg",
-        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos"]
+        alergenos: ["Gluten (Trigo)", "Huevo", "Lácteos"],
+        packs: "Pack 12 (15,00€)"
     },
     {
         id: 9,
