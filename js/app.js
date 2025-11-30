@@ -100,34 +100,35 @@ function openProduct(id) {
     document.getElementById('pm-title').innerText = p.nombre;
 
     let descHTML = p.desc + " Elaborados a mano cada mañana para asegurar la máxima frescura.";
-    if (p.precio) {
-        let packsHTML = '';
-        if (p.packs) {
-            const packsArr = p.packs.split(' | ');
-            packsHTML = `<div class="pack-title"><i class="fas fa-box-open" style="color:var(--primary);"></i> Packs Ahorro</div>
-                         <div class="pack-list">
-                            ${packsArr.map(pack => {
-                // Separar nombre y precio "Pack 6 (7,08€)"
-                const match = pack.match(/(.*)\s\((.*)€\)/);
-                if (match) {
-                    const packName = match[1];
-                    const packPrice = parseFloat(match[2].replace(',', '.'));
-                    return `<div class="pack-item" onclick="addToCart(${p.id}, this, '${packName}', ${packPrice}); setTimeout(closeProduct, 300);" style="cursor:pointer;">
-                                                <span class="pack-name">${packName}</span>
-                                                <span class="pack-price">${match[2]}€</span>
-                                                <i class="fas fa-plus-circle" style="color:var(--primary); margin-left:10px;"></i>
-                                            </div>`;
-                }
-                return `<div class="pack-item"><span class="pack-name">${pack}</span></div>`;
-            }).join('')}
-                         </div>`;
-        }
 
+    let packsHTML = '';
+    if (p.packs) {
+        const packsArr = p.packs.split(' | ');
+        packsHTML = `<div class="pack-title"><i class="fas fa-box-open" style="color:var(--primary);"></i> Packs Ahorro</div>
+                     <div class="pack-list">
+                        ${packsArr.map(pack => {
+            const match = pack.match(/(.*)\s\((.*€)\)/);
+            if (match) {
+                const packName = match[1];
+                const packPrice = parseFloat(match[2].replace(',', '.'));
+                return `<div class="pack-item" onclick="addToCart(${p.id}, this, '${packName}', ${packPrice}); setTimeout(closeProduct, 300);" style="cursor:pointer;">
+                                            <span class="pack-name">${packName}</span>
+                                            <span class="pack-price">${match[2]}</span>
+                                            <i class="fas fa-plus-circle" style="color:var(--primary); margin-left:10px;"></i>
+                                        </div>`;
+            }
+            return `<div class="pack-item"><span class="pack-name">${pack}</span></div>`;
+        }).join('')}
+                     </div>`;
+    }
+
+    if (p.precio || packsHTML) {
         descHTML += `<div class="price-box-modal">
-            <div class="price-main">${p.precio.toFixed(2).replace('.', ',')}€ <span>/ unidad</span></div>
+            ${p.precio ? `<div class="price-main">${p.precio.toFixed(2).replace('.', ',')}€ <span>/ unidad</span></div>` : ''}
             ${packsHTML}
         </div>`;
     }
+
     document.getElementById('pm-desc').innerHTML = descHTML;
     document.getElementById('pm-cat').innerText = p.cat.join(" | ");
 
