@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Zorro | Repostería Profesional</title>
 
     <meta name="theme-color" content="#FFFBF2">
@@ -11,6 +11,20 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="description" content="Repostería artesanal en Montoro. Dulces tradicionales y Ruleta de descuentos.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://panaderiaelzorro.com/">
+    <meta property="og:title" content="El Zorro | Repostería Profesional">
+    <meta property="og:description" content="Repostería artesanal en Montoro. Dulces tradicionales y Ruleta de descuentos.">
+    <meta property="og:image" content="img/icono_vectorizado.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://panaderiaelzorro.com/">
+    <meta property="twitter:title" content="El Zorro | Repostería Profesional">
+    <meta property="twitter:description" content="Repostería artesanal en Montoro. Dulces tradicionales y Ruleta de descuentos.">
+    <meta property="twitter:image" content="img/icono_vectorizado.png">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +42,7 @@
 
     <!-- PRELOADER -->
     <div id="preloader">
-        <img src="https://latanadelzorro.github.io/Pagina-web/img/icono_vectorizado.svg" alt="Logo" class="loader-logo">
+        <img src="img/icono_vectorizado.svg" alt="Logo" class="loader-logo">
         <div class="loader-spinner"></div>
         <p
             style="margin-top: 15px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; color: var(--primary-dark);">
@@ -38,7 +52,7 @@
     <!-- HEADER -->
     <header class="app-header">
         <div class="brand">
-            <img src="https://latanadelzorro.github.io/Pagina-web/img/icono_vectorizado.svg" alt="Logo">
+            <img src="img/icono_vectorizado.svg" alt="Logo">
             <div class="brand-text">
                 <h1>El Zorro</h1>
                 <small>Montoro, Córdoba</small>
@@ -93,6 +107,10 @@
     <div id="catalogo" style="padding-top: 10px;">
         <div class="cat-header">
             <h3>Nuestra Vitrina</h3>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Buscar dulce..." onkeyup="searchProducts()">
+            </div>
         </div>
         <div class="cat-scroll">
             <button class="cat-chip active" onclick="filter('todos', this)">Todo</button>

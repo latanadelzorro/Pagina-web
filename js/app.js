@@ -242,11 +242,8 @@ function showPromoInCart(code) {
 }
 
 // --- PRINCIPAL ---
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('zorro_theme');
-    if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); updateThemeIcon(true); }
-    renderGrid('todos'); updateUI(); checkWheelState();
-});
+// Se mueve al final del archivo para incluir checkLastOrder
+
 
 function renderGrid(filtro) {
     const grid = document.getElementById('grid');
@@ -271,6 +268,17 @@ function renderGrid(filtro) {
         const isFav = favorites.includes(p.id);
         const fallback = "this.src='https://placehold.co/300?text=El+Zorro'";
 
+        // Image fade-in logic
+        const img = new Image();
+        img.src = p.img;
+        img.onload = function () {
+            const realImg = div.querySelector('img');
+            if (realImg) {
+                realImg.src = p.img;
+                realImg.classList.add('loaded');
+            }
+        };
+
         // Mostrar precio: unitario o primer pack si no tiene unitario
         let priceDisplay = '';
         if (p.precio) {
@@ -289,7 +297,7 @@ function renderGrid(filtro) {
                         <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
                     </button>
                     <div class="img-wrapper" onclick="openProduct(${p.id})">
-                        <img src="${p.img}" loading="lazy" alt="${p.nombre}" onerror="${fallback}">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" loading="lazy" alt="${p.nombre}" onerror="${fallback}">
                         <div class="btn-add-mini" onclick="handleGridAdd(${p.id}, this)"><i class="fas fa-plus"></i></div>
                     </div>
                     <div class="info-wrapper" onclick="openProduct(${p.id})" style="cursor:pointer;">
@@ -300,6 +308,22 @@ function renderGrid(filtro) {
                     </div>
                 `;
         grid.appendChild(div);
+    });
+}
+
+/* --- BUSCADOR --- */
+function searchProducts() {
+    const input = document.getElementById('search-input');
+    const filterText = input.value.toLowerCase();
+    const cards = document.getElementsByClassName('product-card');
+
+    Array.from(cards).forEach(card => {
+        const title = card.querySelector('h4').innerText.toLowerCase();
+        if (title.includes(filterText)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
     });
 }
 
@@ -344,6 +368,36 @@ function addToCart(id, btn, variantName = null, variantPrice = null) {
     }
 
     if (btn) {
+        // Animación de vuelo
+        const img = document.querySelector(`.img-wrapper[onclick*="${id}"] img`);
+        if (img) {
+            const flyImg = img.cloneNode();
+            flyImg.classList.add('flying-img');
+
+            const rect = img.getBoundingClientRect();
+            flyImg.style.top = `${rect.top}px`;
+            flyImg.style.left = `${rect.left}px`;
+            flyImg.style.width = `${rect.width}px`;
+            flyImg.style.height = `${rect.height}px`;
+
+            document.body.appendChild(flyImg);
+
+            const cartIcon = document.querySelector('.fa-shopping-bag');
+            const cartRect = cartIcon.getBoundingClientRect();
+
+            setTimeout(() => {
+                flyImg.style.top = `${cartRect.top}px`;
+                flyImg.style.left = `${cartRect.left}px`;
+                flyImg.style.width = '20px';
+                flyImg.style.height = '20px';
+                flyImg.style.opacity = '0';
+            }, 10);
+
+            setTimeout(() => {
+                flyImg.remove();
+            }, 800);
+        }
+
         // Animación simple del botón
         const originalTransform = btn.style.transform;
         btn.style.transform = "scale(0.95)";
@@ -385,7 +439,15 @@ function closeCart() { document.getElementById('overlay').classList.remove('acti
 function renderCartItems() {
     const div = document.getElementById('cart-items');
     const items = Object.values(cart);
-    if (items.length === 0) { div.innerHTML = `<div style='text-align:center; margin-top:40px; opacity:0.5;'><i class="fas fa-shopping-basket" style="font-size:3rem; margin-bottom:15px; color:var(--gray);"></i><p>Tu cesta está vacía.</p></div>`; return; }
+    if (items.length === 0) {
+        div.innerHTML = `
+            <div style='text-align:center; margin-top:40px; opacity:0.5;'>
+                <i class="fas fa-shopping-basket" style="font-size:3rem; margin-bottom:15px; color:var(--gray);"></i>
+                <p>Tu cesta está vacía.</p>
+                <button onclick="closeCart()" style="margin-top:20px; padding:10px 20px; background:var(--primary); color:white; border:none; border-radius:20px; cursor:pointer;">Ir a la Vitrina</button>
+            </div>`;
+        return;
+    }
     div.innerHTML = items.map(i => `
                 <div class="cart-row">
                     <img src="${i.img}" alt="${i.nombre}">
@@ -432,5 +494,47 @@ function sendOrder() {
         }
     }
     msg += "%0A%0AQuedo a la espera de confirmación. ¡Gracias!";
-    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`, '_blank');
+    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
+
+    // Guardar pedido en historial
+    const lastOrder = {
+        date: new Date().toISOString(),
+        items: cart,
+        total: totalPrice
+    };
+    localStorage.setItem('zorro_last_order', JSON.stringify(lastOrder));
+
+    // Usar location.href para asegurar que funcione en móviles
+    window.location.href = url;
 }
+
+/* --- HISTORIAL PEDIDOS --- */
+function checkLastOrder() {
+    const last = localStorage.getItem('zorro_last_order');
+    if (last) {
+        const order = JSON.parse(last);
+        const date = new Date(order.date).toLocaleDateString();
+        const btn = document.createElement('button');
+        btn.className = 'btn-history';
+        btn.innerHTML = `<i class="fas fa-history"></i> Repetir pedido del ${date}`;
+        btn.onclick = () => {
+            if (confirm('¿Quieres cargar tu último pedido? Se borrará la cesta actual.')) {
+                cart = order.items;
+                saveCart();
+                updateUI();
+                openCart();
+            }
+        };
+
+        // Insertar antes del grid
+        const grid = document.getElementById('catalogo');
+        grid.insertBefore(btn, grid.querySelector('.cat-header'));
+    }
+}
+
+// Añadir checkLastOrder al inicio
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('zorro_theme');
+    if (savedTheme === 'dark') { document.body.classList.add('dark-mode'); updateThemeIcon(true); }
+    renderGrid('todos'); updateUI(); checkWheelState(); checkLastOrder();
+});
